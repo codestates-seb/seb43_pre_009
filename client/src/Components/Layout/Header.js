@@ -6,10 +6,8 @@ function Header() {
     <WrapperHeader>
       <div>stackoverflow</div> {/* 로고 들어갈 자리 */}
       <Routes>
-        <Btns>
-          <Route path="/login">Login</Route>
-          <Route path="signup">Signup</Route>
-        </Btns>
+        <Route path="/login" element={<Btns>Login</Btns>} />
+        <Route path="/signup" element={<Btns>Signup</Btns>} />
       </Routes>
     </WrapperHeader>
   );
