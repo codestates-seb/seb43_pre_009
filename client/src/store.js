@@ -3,8 +3,7 @@ import counterSlice from './Actions/counterSlice';
 
 const store = configureStore({
   reducer: {
-    // TODO : add reducers
-    counter: counterSlice.reducer,
+    counter: counterSlice,
   },
 });
 
