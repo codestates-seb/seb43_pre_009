@@ -14,7 +14,7 @@ function Content() {
     <ContentWrapper>
       <Routes>
         {/* list로 연결 - 수정사항 : 하위 라우터를 연결하는 중첩라우팅의 경우 "와일드카드"의 개념을 활용하여 작성해야 한다 */}
-        <Route path="/*" element={<PostList />} />
+        <Route path="/" element={<PostList />} />
         <Route path="/post/*" element={<PostContents />} />
         <Route path="/question" element={<AddQuestion />} />
         {/* 로그인으로 연결 */}

@@ -256,22 +256,6 @@ const InputExpect = () => {
   );
 };
 
-// 상태관리구조
-// const initialState = {
-//   questionTitle: '',
-//   questionContent: '',
-//   questionExpect: '',
-//   isLoading: false,
-//   hasError: false,
-// };
-
-// RestFull API로 전송하기 위한 데이터 구조
-// {
-//   title: '질문 제목',
-//   content: '질문 내용',
-//   expect: '예상 결과',
-// }
-
 const AddQuestion = () => {
   return (
     <AddQuestionWrapper>

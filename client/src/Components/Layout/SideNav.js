@@ -5,7 +5,7 @@ function SideNav() {
 
   return (
     <NavWrapper>
-      <StyledNavLink to="*" activeclassname={menuActive}>
+      <StyledNavLink to="/" activeclassname={menuActive}>
         Questions
       </StyledNavLink>
       <StyledNavLink to="/user" activeclassname={menuActive}>
