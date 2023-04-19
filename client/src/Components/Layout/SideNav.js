@@ -1,15 +1,16 @@
-import { Link } from 'react-router-dom';
-import { NavWrapper, Menu } from './styled';
+import { NavWrapper, StyledNavLink } from './styled';
 
 function SideNav() {
+  const menuActive = 'active';
+
   return (
     <NavWrapper>
-      <Link to="*">
-        <Menu>Questions</Menu>
-      </Link>
-      <Link to="/user">
-        <Menu>Users</Menu>
-      </Link>
+      <StyledNavLink to="*" activeclassname={menuActive}>
+        Questions
+      </StyledNavLink>
+      <StyledNavLink to="/user" activeclassname={menuActive}>
+        Users
+      </StyledNavLink>
     </NavWrapper>
   );
 }
