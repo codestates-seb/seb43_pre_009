@@ -1,12 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { login, logout } from '../../Actions/isLoginSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedin, setIsLoggedin] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const islogin = useSelector((state) => state.islogin.value);
 
   const loginUser = async (email, password) => {
     try {
@@ -44,11 +47,12 @@ const Login = () => {
       const data = await loginUser(email, password);
       if (data.success) {
         console.log('로그인 성공:', data);
-        setIsLoggedin(true);
+        // setIsLoggedin(true);
+        dispatch(login());
         navigate('/');
       } else {
         console.log('로그인 실패');
-        setIsLoggedin(false);
+        dispatch(logout());
       }
     } catch (error) {
       console.log(error);
@@ -76,7 +80,7 @@ const Login = () => {
         />
         <input type="submit" value="Log In" />
       </form>
-      {isLoggedin ? (
+      {islogin ? (
         <p>로그인 성공</p>
       ) : (
         <p>
