@@ -4,7 +4,7 @@ import { NavWrapper, Menu } from './styled';
 function SideNav() {
   return (
     <NavWrapper>
-      <Link to="/list">
+      <Link to="*">
         <Menu>Questions</Menu>
       </Link>
       <Link to="/user">
