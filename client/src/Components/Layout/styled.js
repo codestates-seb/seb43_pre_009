@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+
+const themeColor = '#f28225';
 
 export const Btns = styled.div`
   padding: 8px 12px;
@@ -27,7 +30,7 @@ export const HeaderWrapper = styled.header`
   left: 0;
   top: 0;
   background-color: #f8f9f9;
-  border-top: 3px solid #f28225;
+  border-top: 3px solid ${themeColor};
   box-shadow: #8080803b 0px 2px 8px;
   display: flex;
   align-items: center;
@@ -44,17 +47,25 @@ export const TopBarContainer = styled.div`
 /* SideNav */
 export const NavWrapper = styled.nav`
   width: 164px;
+  padding-top: 24px;
   & a {
     display: block;
   }
-
-  /* 추 후에 삭제할 코드 */
-  border: 1px solid #f28225;
 `;
 
-export const Menu = styled.button`
-  font-size: 15px;
-  color: #444;
+export const StyledNavLink = styled(NavLink)`
+  font-size: 13px;
+  color: #535a60;
+  padding: 8px 6px;
+  &:hover {
+    color: black;
+  }
+  &.active {
+    font-weight: bold;
+    background-color: #f1f3f3;
+    color: black;
+    border-right: 3px solid ${themeColor};
+  }
 `;
 
 /* Content */
@@ -64,10 +75,6 @@ export const ContentWrapper = styled.div`
   padding: 24px;
   border-left: 1px solid #d7d9dc;
   box-sizing: border-box;
-
-  /* 추 후에 삭제할 코드 */
-  min-height: 500px;
-  border: 1px solid #444;
 `;
 
 /* Footer */
