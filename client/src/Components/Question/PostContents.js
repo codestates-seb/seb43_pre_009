@@ -5,8 +5,6 @@ import { increment, decrement } from '../../Actions/counterSlice';
 
 const ReputationWrapper = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
   justify-content: center;
   align-items: center;
   background-color: yellow;
@@ -68,9 +66,6 @@ const PostContents = () => {
           Down
         </DecreaseReputation>
       </ReputationWrapper>
-
-      <div>여기는 글 페이지</div>
-      <button>Add Comment</button>
     </>
   );
 };
