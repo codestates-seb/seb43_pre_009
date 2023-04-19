@@ -1,13 +1,13 @@
-package com.team.SEB_43_pre09;
+package com.team.SEB_43_pre09.member;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Seb43Pre09Application {
+public class memberApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Seb43Pre09Application.class, args);
+		SpringApplication.run(memberApplication.class, args);
 	}
 
 }
