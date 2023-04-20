@@ -1,47 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  posts: [],
+};
+
 const addQuestionSlice = createSlice({
   name: 'addQuestion',
-  initialState: {
-    title: '',
-    contents: '',
-    expect: '',
-    isLoading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
-    setTitle: (state, action) => {
-      state.title = action.payload;
-    },
-    setContents: (state, action) => {
-      state.contents = action.payload;
-    },
-    setExpect: (state, action) => {
-      state.expect = action.payload;
-    },
-    setLoading: (state, action) => {
-      state.isLoading = action.payload;
-    },
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
-    resetForm: (state) => {
-      state.title = '';
-      state.contents = '';
-      state.expect = '';
-      state.isLoading = false;
-      state.error = null;
+    addPost: (state, action) => {
+      state.posts.unshift(action.payload);
     },
   },
 });
 
-export const {
-  setTitle,
-  setContents,
-  setExpect,
-  setLoading,
-  setError,
-  resetForm,
-} = addQuestionSlice.actions;
-
+export const { addPost } = addQuestionSlice.actions;
+export const selectPosts = (state) => state.addQuestion.posts;
 export default addQuestionSlice.reducer;
