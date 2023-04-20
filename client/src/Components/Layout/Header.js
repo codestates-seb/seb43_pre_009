@@ -40,7 +40,8 @@ function Header() {
                   >
                     Login
                   </Btns>
-
+                </Link>
+                <Link to="/signup">
                   <Btns>Sign up</Btns>
                 </Link>
               </>
