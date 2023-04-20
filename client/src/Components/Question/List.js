@@ -8,7 +8,7 @@ const List = () => {
   return (
     <>
       <button>
-        <a href="/question">Ask Question</a>
+        <a href="/question/add">Ask Question</a>
       </button>
       <ul>
         {posts.map((post) => (
