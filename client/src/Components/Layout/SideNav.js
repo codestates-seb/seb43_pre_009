@@ -1,4 +1,4 @@
-import { NavWrapper, StyledNavLink } from './styled';
+import { NavWrapper, StyledNavLink, Text } from './styled';
 
 function SideNav() {
   const menuActive = 'active';
@@ -6,9 +6,18 @@ function SideNav() {
   return (
     <NavWrapper>
       <StyledNavLink to="/" activeclassname={menuActive}>
+        Home
+      </StyledNavLink>
+      <Text>PUBLIC</Text>
+      <StyledNavLink
+        to="/question/*"
+        activeclassname={menuActive}
+        pL30="30px"
+        dB="block"
+      >
         Questions
       </StyledNavLink>
-      <StyledNavLink to="/user" activeclassname={menuActive}>
+      <StyledNavLink to="/user" activeclassname={menuActive} pL30="30px">
         Users
       </StyledNavLink>
     </NavWrapper>
