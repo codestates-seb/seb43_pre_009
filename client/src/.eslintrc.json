@@ -24,6 +24,7 @@
     "import/no-named-as-default": "off",
     "jsx-a11y/click-events-have-key-events": "off", // 웹 접근성 오류 무시
     "jsx-a11y/no-noninteractive-element-interactions": "off", // 웹 접근성 오류 무시
-    "jsx-a11y/no-noninteractive-tabindex": "off" // 웹 접근성 오류 무시
+    "jsx-a11y/no-noninteractive-tabindex": "off", // 웹 접근성 오류 무시
+    "react/prop-types": "off" // prop-types를 사용하지 않음
   }
 }
