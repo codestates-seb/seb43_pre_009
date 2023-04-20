@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Paging from './Paging';
 
 // 스타일 코드
 const ListWrapper = styled.div``;
@@ -116,16 +117,9 @@ const ListCard = ({ id, title, contents, createdAt }) => {
   );
 };
 
-// prop-types를 이용한 타입 검증
-ListCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  contents: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-};
-
 const List = () => {
   const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     axios.get('http://localhost:3001/questions').then((res) => {
@@ -137,6 +131,15 @@ const List = () => {
     });
   }, []);
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // 현재 페이지에 해당하는 게시글 10개 가져오기
+  const indexOfLastPost = currentPage * 10;
+  const indexOfFirstPost = indexOfLastPost - 10;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
     <ListWrapper>
       <TitleWrapper>
@@ -145,17 +148,30 @@ const List = () => {
           <a href="/question/add">Ask Question</a>
         </button>
       </TitleWrapper>
-      {posts.map((post) => (
+      {currentPosts.map((post) => (
         <ListCard
           key={post.id}
-          id={post.id} // id prop 추가
+          id={post.id}
           title={post.title}
           contents={post.contents}
           createdAt={post.createdAt}
         />
       ))}
+      <Paging
+        page={currentPage}
+        count={posts.length}
+        setPage={handlePageChange}
+      />
     </ListWrapper>
   );
+};
+
+// prop-types를 이용한 타입 검증
+ListCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  contents: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default List;
