@@ -2,6 +2,7 @@ package com.team.SEB_43_pre09.answer.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -15,11 +16,12 @@ public class AnswerPatchDto {
     private long answerId; // 답변 고유 번호
 
     @NotEmpty(message = "제목은 비어있지 않아야 합니다.")
-    private String title; // 답변 제목
+    private String answerTitle; // 답변 제목
 
     @NotEmpty(message = "내용은 비어있지 않아야 합니다.")
-    private String content; // 답변 내용
-    private String modifiedAt; // 답변 수정 시간
+    private String answerContent; // 답변 내용
+    private LocalDateTime answerModifiedAt; // 답변 수정 시간
+
 
     public long getAnswerId() {
         return answerId;
@@ -29,27 +31,27 @@ public class AnswerPatchDto {
         this.answerId = answerId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAnswerTitle() {
+        return answerTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAnswerTitle(String answerTitle) {
+        this.answerTitle = answerTitle;
     }
 
-    public String getContent() {
-        return content;
+    public String getAnswerContent() {
+        return answerContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setAnswerContent(String answerContent) {
+        this.answerContent = answerContent;
     }
 
-    public String getModifiedAt() {
-        return modifiedAt;
+    public LocalDateTime getAnswerModifiedAt() {
+        return answerModifiedAt;
     }
 
-    public void setModifiedAt(String modifiedAt) {
-        this.modifiedAt = modifiedAt;
+    public void setAnswerModifiedAt(LocalDateTime answerModifiedAt) {
+        this.answerModifiedAt = answerModifiedAt;
     }
 }

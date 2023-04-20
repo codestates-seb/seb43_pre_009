@@ -42,11 +42,11 @@ public class AnswerController {
 
     /** 답변을 수정하는 핸들러 메서드 **/
     @PatchMapping("/{answer_id}")
-    public ResponseEntity patchAnswer(@PathVariable("answer_id") @Positive int answerId,
+    public ResponseEntity patchAnswer(@PathVariable("answer_id") @Positive long answerId,
                                       @Valid @RequestBody AnswerPatchDto answerPatchDto) {
         answerPatchDto.setAnswerId(answerId);
-        answerPatchDto.setTitle("sample title");
-        answerPatchDto.setContent("sample content");
+        answerPatchDto.setAnswerTitle("sample title");
+        answerPatchDto.setAnswerContent("sample content");
 
         // No need Business logic
 
@@ -55,7 +55,7 @@ public class AnswerController {
 
     /** 답변을 조회하는 핸들러 메서드 **/
     @GetMapping("/{answer_id}") // 클라이언트가 서버에 리소스를 조회
-    public ResponseEntity getAnswer(@PathVariable("answer_id") int answerId) { // @PathVariable의 괄호 안에 입력한 문자열 값은 @GetMapping의 중괄호({ }) 안의 문자열과 동일해야 합니다.
+    public ResponseEntity getAnswer(@PathVariable("answer_id") long answerId) { // @PathVariable의 괄호 안에 입력한 문자열 값은 @GetMapping의 중괄호({ }) 안의 문자열과 동일해야 합니다.
         System.out.println("# anwerId: " + answerId);
 
         // not implementation
