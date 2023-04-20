@@ -6,8 +6,8 @@ import isLoginSlice from './Actions/isLoginSlice';
 const store = configureStore({
   reducer: {
     counter: counterSlice,
-        islogin: isLoginSlice,
-            addQuestion: addQuestionReducer,
+    addQuestion: addQuestionReducer,
+    islogin: isLoginSlice,
   },
 });
 
