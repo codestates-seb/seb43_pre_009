@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoginWrapper } from './styled';
+import { LoginWrapper, ModalBackdrop, Modal } from './styled';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState('');
 
   const navigate = useNavigate();
 
@@ -26,13 +28,24 @@ const Signup = () => {
     }
   };
 
+  const openModal = () => {
+    setShowModal(true);
+    setModalContent(`반갑습니다! ${email}으로 접속해보세요!`);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    navigate('/login');
+  };
+
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
       const data = await signupUser(email, password);
       if (data) {
         console.log('회원가입 성공:', data);
-        navigate('/login');
+        // navigate('/login');
+        // setSignupModal(true);
       } else {
         console.log('회원가입 실패');
       }
@@ -72,7 +85,15 @@ const Signup = () => {
           value={password}
           onChange={onChange}
         />
-        <input type="submit" value="Sign Up" />
+        <input type="submit" value="Sign Up" onClick={openModal} />
+        {showModal ? (
+          <ModalBackdrop>
+            <Modal>
+              <p>{modalContent}</p>
+              <button onClick={closeModal}>로그인 화면으로 가기</button>
+            </Modal>
+          </ModalBackdrop>
+        ) : null}
       </LoginWrapper>
     </form>
   );
