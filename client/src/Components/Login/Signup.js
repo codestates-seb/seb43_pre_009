@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LoginWrapper } from './styled';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -31,7 +32,6 @@ const Signup = () => {
       const data = await signupUser(email, password);
       if (data) {
         console.log('회원가입 성공:', data);
-        // TODO: 회원가입 성공 시 처리할 로직 작성
         navigate('/login');
       } else {
         console.log('회원가입 실패');
@@ -54,8 +54,8 @@ const Signup = () => {
   };
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit}>
+      <LoginWrapper>
         <input
           name="email"
           type="email"
@@ -73,8 +73,8 @@ const Signup = () => {
           onChange={onChange}
         />
         <input type="submit" value="Sign Up" />
-      </form>
-    </>
+      </LoginWrapper>
+    </form>
   );
 };
 
