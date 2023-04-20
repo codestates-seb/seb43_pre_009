@@ -7,6 +7,7 @@ import ProfileEdit from '../User/ProfileEdit';
 import Login from '../Login/Login';
 import Signup from '../Login/Signup';
 import PostContents from '../Question/PostContents';
+import AddQuestion from '../Question/AddQuestion';
 // import AddQuestion from '../Question/AddQuestion';
 
 function Content() {
@@ -17,6 +18,7 @@ function Content() {
         <Route path="/" element={`Home Contents`} />
         <Route path="/post/*" element={<PostContents />} />
         <Route path="/question/*" element={<PostList />} />
+        <Route path="/question/add" element={<AddQuestion />} />
         {/* 로그인으로 연결 */}
         <Route path="/login" element={<Login />} />
         {/* 회원가입으로 연결! */}
