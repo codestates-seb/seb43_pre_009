@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../Actions/isLoginSlice'
 import { ReactComponent as Logo } from '../../logo-stackoverflow.svg';
 import {
   Btns,
@@ -8,6 +10,7 @@ import {
   TopBarBtn,
   HeaderLogo,
 } from './styled';
+
 
 function Header() {
   const [isLogin, setIsLogin] = useState(false);
@@ -18,13 +21,30 @@ function Header() {
 
   const handleLogout = () => {
     setIsLogin(false);
-  };
+      };
+      
+      function Header() {
+  const islogin = useSelector((state) => state.islogin.value);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout()); // 로그아웃 액션 디스패치
+
 
   return (
     <>
       <HeaderWrapper>
         <TopBarContainer>
-          <HeaderLogo href="/">
+         <a href="/">stackoverflow</a>
+          <h1>{`${islogin}`}</h1>
+          <TopBarBtn>
+            {islogin ? (
+              <button onClick={handleLogout}>Logout</button>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Btns>Login</Btns>
+                   <HeaderLogo href="/">
             <Logo />
           </HeaderLogo>
           <TopBarBtn>
