@@ -29,6 +29,7 @@ export const Btns = styled.div`
 
 /* Wrapper */
 export const InnerWrapper = styled.div`
+  /* 추후 width 속성을 조정하여 일정 크기 이하의 화면에서도 적절히 요소들이 줄어들도록 만들 예정 */
   width: 1264px;
   height: 100%;
   display: flex;
