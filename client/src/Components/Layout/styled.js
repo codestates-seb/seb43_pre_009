@@ -4,12 +4,27 @@ import { NavLink } from 'react-router-dom';
 const themeColor = '#f28225';
 
 export const Btns = styled.div`
-  padding: 8px 12px;
-`;
-
-export const TopBarBtn = styled.div`
-  display: flex;
-  align-items: center;
+  padding: 8px 8px;
+  background-color: ${(props) => (props.bgcolor ? props.bgcolor : '#4f95ff')};
+  color: ${(props) => (props.color ? props.color : 'white')};
+  font-size: 12px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin-left: 4px;
+  border: 1px solid ${(props) => props.border === '#39749D'};
+  position: relative;
+  &::after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff50;
+    position: absolute;
+    top: 1px;
+    left: 0;
+  }
+  &:hover {
+    background-color: ${(props) => (props.bghover ? props.bghover : '#3d74cc')};
+  }
 `;
 
 /* Wrapper */
@@ -41,22 +56,45 @@ export const TopBarContainer = styled.div`
   display: flex;
   align-items: center;
   width: 1264px;
+  height: 47px;
   justify-content: space-between;
+`;
+
+export const HeaderLogo = styled.a`
+  padding: 0 8px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  & svg {
+    max-width: 150px;
+    max-height: 50px;
+  }
+  &:hover {
+    background-color: #e4e6e8;
+  }
+`;
+
+export const TopBarBtn = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 /* SideNav */
 export const NavWrapper = styled.nav`
   width: 164px;
   padding-top: 24px;
+  margin-bottom: 100px;
   & a {
     display: block;
   }
 `;
 
 export const StyledNavLink = styled(NavLink)`
-  font-size: 13px;
+  position: relative;
+  font-size: 12px;
   color: #535a60;
-  padding: 8px 6px;
+  padding: 10px 8px;
+  padding-left: ${(props) => (props.pL30 ? props.pL30 : '8px')};
   &:hover {
     color: black;
   }
@@ -66,6 +104,22 @@ export const StyledNavLink = styled(NavLink)`
     color: black;
     border-right: 3px solid ${themeColor};
   }
+  &::after {
+    content: '';
+    display: ${(props) => (props.dB ? props.dB : 'none')};
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 7px;
+    left: 8px;
+    background-color: hotpink;
+  }
+`;
+
+export const Text = styled.div`
+  padding: 16px 8px 8px 8px;
+  font-size: 10px;
+  color: #666;
 `;
 
 /* Content */
