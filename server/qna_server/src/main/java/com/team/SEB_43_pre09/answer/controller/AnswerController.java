@@ -40,16 +40,13 @@ public class AnswerController {
 
     /** 답변을 등록하는 핸들러 메서드 **/
     @PostMapping // 클라이언트의 요청 데이터(request body)를 서버에 생성
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerDto) { // @RequestBody : JSON 형식의 Request Body를 AnswerPostDto 클래스의 객체로 변환을 시켜주는 역할.
-        Answer answer = mapper.answerPostDtoToAnswer(answerDto);
-
-        Answer response = answerService.createAnswer(answer);
-
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response),
-                HttpStatus.CREATED); // ResponseEntity 객체를 생성하면서 생성자 파라미터로 answerPostDto와 HTTP 응답상태를 함께 전달함.
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) { // @RequestBody : JSON 형식의 Request Body를 AnswerPostDto 클래스의 객체로 변환을 시켜주는 역할.
+        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
+        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.CREATED); // ResponseEntity 객체를 생성하면서 생성자 파라미터로 answerPostDto와 HTTP 응답상태를 함께 전달함.
     }
 
     /** 답변을 수정하는 핸들러 메서드 **/
+    // TODO 추후 수정되어야 하는 메서드
     @PatchMapping("/{answer_id}")
     public ResponseEntity patchAnswer(@PathVariable("answer_id") @Positive long answer_id,
                                       @Valid @RequestBody AnswerPatchDto answerPatchDto) {
@@ -58,7 +55,7 @@ public class AnswerController {
         Answer response =
                 answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
 
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response),
+        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), // TODO 추후 수정되어야 하는 메서드
                 HttpStatus.OK);
     }
 

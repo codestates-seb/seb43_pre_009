@@ -1,17 +1,33 @@
 package com.team.SEB_43_pre09.answer.service;
 
 import com.team.SEB_43_pre09.answer.entity.Answer;
+import com.team.SEB_43_pre09.answer.repository.AnswerRepository;
+import com.team.SEB_43_pre09.member.service.MemberService;
+import com.team.SEB_43_pre09.question.service.QuestionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class AnswerService {
+    private final MemberService memberService;
+    private final QuestionService questionService;
+    private final AnswerRepository answerRepository;
+
+    public AnswerService(MemberService memberService,
+                         QuestionService questionService,
+                         AnswerRepository answerRepository) {
+        this.memberService = memberService;
+        this.questionService = questionService;
+        this.answerRepository = answerRepository;
+    }
+
     /** 답변을 등록하는 메서드 */
     public Answer createAnswer(Answer answer) {
-        // TODO should business logic
+        // 회원이 존재하는지 확인
+//        memberService.findVerifiedMember(answer.getMember().getMemberId()); // TODO memberService에 맞춰 수정해야함.
 
-        // TODO answer 객체는 나중에 DB에 저장 후, 되돌려 받는 것으로 변경 필요.
+        // 질문이 존재하는지 확인
         Answer createdAnswer = answer;
         return createdAnswer;
     }
