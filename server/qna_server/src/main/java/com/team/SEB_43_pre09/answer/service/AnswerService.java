@@ -14,7 +14,8 @@ public class AnswerService {
     }
 
     /** 답변을 삭제하는 메서드 */
-    public void deleteAnswer(int memberId) {
+
+    public void deleteAnswer(long member_id) {
 
     }
 

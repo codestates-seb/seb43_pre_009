@@ -2,6 +2,8 @@ package com.team.SEB_43_pre09.answer.controller;
 
 import com.team.SEB_43_pre09.answer.dto.AnswerPatchDto;
 import com.team.SEB_43_pre09.answer.dto.AnswerPostDto;
+import com.team.SEB_43_pre09.answer.entity.Answer;
+import com.team.SEB_43_pre09.answer.service.AnswerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,29 +26,33 @@ import java.util.Map;
 @RestController // 컨트롤러 설정
 @RequestMapping("/answers")
 public class AnswerController {
-    /**
-     * 답변 등록을 위한 핸들러 메서드를 구현한 코드입니다.
-     * <특징>
-     * @RequestParam을 이용해 각각의 파라미터를 전달 받는 대신에 DTO 클래스를 이용해 한번에 전달 받습니다.
-     * @param AnswerPostDto 커피 정보 등록을 위해 클라이언트 측으로부터 전달 받은 request body에 매핑되는 DTO 클래스
-     * @return  클라이언트 측에 전송하는 response body용 커피 정보가 포함된 ResponseEntity
-     *          <p>
-     *          서비스 계층과의 연동이 없으므로 편의상 request body로 전달받은 AnswerPostDto를 그대로 되돌려 줍니다.
-     */
+    private final AnswerService answerService;
+
+    public AnswerController() {
+        this.answerService = new AnswerService();
+    }
 
     /** 답변을 등록하는 핸들러 메서드 **/
     @PostMapping // 클라이언트의 요청 데이터(request body)를 서버에 생성
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) { // @RequestBody : JSON 형식의 Request Body를 AnswerPostDto 클래스의 객체로 변환을 시켜주는 역할.
-        return new ResponseEntity<>(answerPostDto, HttpStatus.CREATED); // ResponseEntity 객체를 생성하면서 생성자 파라미터로 answerPostDto와 HTTP 응답상태를 함께 전달함.
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerDto) { // @RequestBody : JSON 형식의 Request Body를 AnswerPostDto 클래스의 객체로 변환을 시켜주는 역할.
+        Answer answer = new Answer();
+        answer.setAnswer_id(answerDto.getAnswer_id());
+        answer.setQuestion_id(answerDto.getQuestion_id());
+        answer.setMember_id(answerDto.getMember_id());
+        // 타이틀, 콘텐츠, 등록시간 추가해야함.
+
+        Answer response = answerService.createAnswer(answer);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED); // ResponseEntity 객체를 생성하면서 생성자 파라미터로 answerPostDto와 HTTP 응답상태를 함께 전달함.
     }
 
     /** 답변을 수정하는 핸들러 메서드 **/
     @PatchMapping("/{answer_id}")
-    public ResponseEntity patchAnswer(@PathVariable("answer_id") @Positive long answerId,
+    public ResponseEntity patchAnswer(@PathVariable("answer_id") @Positive long answer_id,
                                       @Valid @RequestBody AnswerPatchDto answerPatchDto) {
-        answerPatchDto.setAnswerId(answerId);
-        answerPatchDto.setAnswerTitle("sample title");
-        answerPatchDto.setAnswerContent("sample content");
+        answerPatchDto.setAnswer_id(answer_id);
+        answerPatchDto.setAnswer_title("sample title");
+        answerPatchDto.setAnswer_content("sample content");
 
         // No need Business logic
 
@@ -55,8 +61,8 @@ public class AnswerController {
 
     /** 답변을 조회하는 핸들러 메서드 **/
     @GetMapping("/{answer_id}") // 클라이언트가 서버에 리소스를 조회
-    public ResponseEntity getAnswer(@PathVariable("answer_id") long answerId) { // @PathVariable의 괄호 안에 입력한 문자열 값은 @GetMapping의 중괄호({ }) 안의 문자열과 동일해야 합니다.
-        System.out.println("# anwerId: " + answerId);
+    public ResponseEntity getAnswer(@PathVariable("answer_id") long answer_id) { // @PathVariable의 괄호 안에 입력한 문자열 값은 @GetMapping의 중괄호({ }) 안의 문자열과 동일해야 합니다.
+        System.out.println("# answer_id: " + answer_id);
 
         // not implementation
 
@@ -65,7 +71,7 @@ public class AnswerController {
 
     /** 답변을 삭제하는 핸들러 메서드 **/
     @DeleteMapping("/{answer_id}")
-    public ResponseEntity deleteAnswer(@PathVariable("answer-id") long answerId) { // @PathVariable의 괄호 안에 입력한 문자열 값은 @GetMapping의 중괄호({ }) 안의 문자열과 동일해야 합니다.
+    public ResponseEntity deleteAnswer(@PathVariable("answer_id") long answer_id) { // @PathVariable의 괄호 안에 입력한 문자열 값은 @GetMapping의 중괄호({ }) 안의 문자열과 동일해야 합니다.
         // No need business logic
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
