@@ -48,8 +48,12 @@ button {
 
 
 /* my-style */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+
 body {
     padding: 50px 0 0 0;
     margin: 0;
     box-sizing: border-box;
+	font-family: 'Nanum Gothic', sans-serif;
+
 }
