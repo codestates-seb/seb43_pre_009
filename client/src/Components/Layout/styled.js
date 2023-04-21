@@ -5,13 +5,13 @@ const themeColor = '#f28225';
 
 export const Btns = styled.div`
   padding: 8px 8px;
-  background-color: ${(props) => (props.bgcolor ? props.bgcolor : '#4f95ff')};
+  background-color: ${(props) => (props.bgcolor ? props.bgcolor : '#009bfa')};
   color: ${(props) => (props.color ? props.color : 'white')};
   font-size: 12px;
   border-radius: 3px;
   box-sizing: border-box;
   margin-left: 4px;
-  border: 1px solid ${(props) => props.border === '#39749D'};
+  border: 1px solid ${(props) => props.border === '#1a759b'};
   position: relative;
   &::after {
     content: '';
@@ -23,12 +23,13 @@ export const Btns = styled.div`
     left: 0;
   }
   &:hover {
-    background-color: ${(props) => (props.bghover ? props.bghover : '#3d74cc')};
+    background-color: ${(props) => (props.bghover ? props.bghover : '#0079c8')};
   }
 `;
 
 /* Wrapper */
 export const InnerWrapper = styled.div`
+  /* 추후 width 속성을 조정하여 일정 크기 이하의 화면에서도 적절히 요소들이 줄어들도록 만들 예정 */
   width: 1264px;
   height: 100%;
   display: flex;
@@ -104,15 +105,12 @@ export const StyledNavLink = styled(NavLink)`
     color: black;
     border-right: 3px solid ${themeColor};
   }
-  &::after {
-    content: '';
-    display: ${(props) => (props.dB ? props.dB : 'none')};
+  & svg {
     position: absolute;
-    width: 18px;
-    height: 18px;
-    top: 7px;
-    left: 8px;
-    background-color: hotpink;
+    top: 9px;
+    left: 9px;
+    width: 14px;
+    height: 14px;
   }
 `;
 

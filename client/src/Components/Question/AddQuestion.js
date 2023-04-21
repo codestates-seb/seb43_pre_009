@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // 스타일 코드
@@ -231,6 +232,7 @@ const AddQuestion = () => {
   const [contents, setContents] = useState('');
   const [expect, setExpect] = useState('');
   const [createdAt, setCreatedAt] = useState('');
+  const navigate = useNavigate();
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -245,7 +247,7 @@ const AddQuestion = () => {
   };
 
   useEffect(() => {
-    const currentDateTime = new Date().toISOString();
+    const currentDateTime = new Date();
     setCreatedAt(currentDateTime);
   }, []);
 
@@ -263,8 +265,8 @@ const AddQuestion = () => {
       return;
     }
     // 유효성 검사: 기대하는 결과의 길이 확인
-    if (expect.length < 20) {
-      alert('기대하는 결과는 최소 20자 이상이어야 합니다.');
+    if (expect.length < 5) {
+      alert('기대하는 결과는 최소 5자 이상이어야 합니다.');
       return;
     }
 
@@ -275,10 +277,12 @@ const AddQuestion = () => {
       createdAt,
     };
     try {
-      const response = await axios.post(`${API_URL}`, newQuestion);
-      console.log(response.data);
+      const res = await axios.post(`${API_URL}`, newQuestion);
+      // post 요청에 성공한 경우에만 /question 경로로 이동
+      console.log(res.data);
+      navigate('/question/*');
     } catch (error) {
-      console.error('Error posting question:', error);
+      console.error('예기치 못한 이유로 종료되었습니다.', error);
     }
   };
 

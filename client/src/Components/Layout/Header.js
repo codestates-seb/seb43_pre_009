@@ -33,10 +33,10 @@ function Header() {
               <>
                 <Link to="/login">
                   <Btns
-                    bgcolor="#E1EDF5"
-                    color="#39749D"
+                    bgcolor="#dfedf4"
+                    color="#1a759b"
                     border
-                    bghover="#b4d3eb"
+                    bghover="#acd4e9"
                   >
                     Login
                   </Btns>
