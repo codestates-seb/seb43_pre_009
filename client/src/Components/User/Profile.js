@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Btns } from '../Layout/styled';
 
 const ProfileWrapper = styled.div`
   margin: 30px;
@@ -21,9 +22,9 @@ const Profile = () => {
         <p>사람정보</p>
       </div>
       <div className=".buttons">
-        <button>profile</button>
+        <Btns>profile</Btns>
         <Link to="/useredit">
-          <button>edit</button>
+          <Btns>edit</Btns>
         </Link>
       </div>
       <div className="info">

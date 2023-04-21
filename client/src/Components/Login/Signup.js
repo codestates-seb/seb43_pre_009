@@ -1,36 +1,39 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginWrapper, ModalBackdrop, Modal } from './styled';
+import { Btns } from '../Layout/styled';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [nickname, setNickname] = useState('');
+
   const [modalContent, setModalContent] = useState('');
+
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
-  const signupUser = async (email, password) => {
-    try {
-      const response = await fetch('http://localhost:3001/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include',
-      });
-      const data = await response.json();
+  const signupUser = async (email, password, nickname) => {
+    const response = await fetch('http://localhost:3001/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password, nickname }),
+      credentials: 'include',
+    });
+    const data = await response.json();
+    if (data.success) {
       return data;
-    } catch (error) {
-      console.log(error);
-      return null;
+    } else {
+      throw new Error(data.message);
     }
   };
 
   const openModal = () => {
     setShowModal(true);
-    setModalContent(`반갑습니다! ${email}으로 접속해보세요!`);
+    setModalContent(`${nickname}`);
   };
 
   const closeModal = () => {
@@ -41,16 +44,10 @@ const Signup = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const data = await signupUser(email, password);
-      if (data) {
-        console.log('회원가입 성공:', data);
-        // navigate('/login');
-        // setSignupModal(true);
-      } else {
-        console.log('회원가입 실패');
-      }
+      const data = await signupUser(email, password, nickname);
+      console.log('회원가입 성공:', data);
     } catch (error) {
-      console.log(error);
+      console.log('회원가입 실패:', error.message);
     }
   };
 
@@ -63,6 +60,8 @@ const Signup = () => {
       setEmail(value);
     } else if (name === 'password') {
       setPassword(value);
+    } else if (name === 'nickname') {
+      setNickname(value);
     }
   };
 
@@ -85,12 +84,22 @@ const Signup = () => {
           value={password}
           onChange={onChange}
         />
+        <input
+          name="nickname"
+          type="text"
+          placeholder="nickname"
+          required
+          value={nickname}
+          onChange={onChange}
+        />
         <input type="submit" value="Sign Up" onClick={openModal} />
         {showModal ? (
           <ModalBackdrop>
             <Modal>
-              <p>{modalContent}</p>
-              <button onClick={closeModal}>로그인 화면으로 가기</button>
+              <h1>{modalContent}님</h1>
+              <h3>반갑습니다!</h3>
+              <h3>맘껏이용해보십쇼!</h3>
+              <Btns onClick={closeModal}>로그인 하기</Btns>
             </Modal>
           </ModalBackdrop>
         ) : null}

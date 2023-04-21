@@ -16,6 +16,11 @@ export const Modal = styled.div`
   background-color: white;
   width: 300px;
   height: 300px;
+
+  h3 {
+    padding: 10px;
+  }
+  index: 2;
 `;
 
 export const ModalBackdrop = styled.div`
@@ -28,4 +33,5 @@ export const ModalBackdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  index: 1;
 `;
