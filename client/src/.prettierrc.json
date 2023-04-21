@@ -1,4 +1,3 @@
 {
-  "singleQuote": true,
-  "prettier.printWidth": 300
+  "singleQuote": true
 }
