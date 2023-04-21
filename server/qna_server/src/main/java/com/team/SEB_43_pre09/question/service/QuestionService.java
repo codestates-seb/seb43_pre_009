@@ -44,6 +44,5 @@ public class QuestionService {
         questionRepository.deleteById(id);
     }
 
-    // 추가로 필요한 메서드가 있다면 여기에 선언하세요.
 }
 
