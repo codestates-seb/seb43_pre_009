@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterSlice from './Actions/counterSlice';
+import questionSlice from './Actions/questionSlice';
 import addQuestionReducer from './Actions/addQuestionSlice';
 import isLoginSlice from './Actions/isLoginSlice';
 
 const store = configureStore({
   reducer: {
-    counter: counterSlice,
+    question: questionSlice,
     addQuestion: addQuestionReducer,
     islogin: isLoginSlice,
   },
