@@ -28,7 +28,7 @@ function Header() {
           <h1>{`${islogin}`}</h1>
           <TopBarBtn>
             {islogin ? (
-              <button onClick={handleLogout}>Logout</button>
+              <Btns onClick={handleLogout}>Logout</Btns>
             ) : (
               <>
                 <Link to="/login">
@@ -41,7 +41,6 @@ function Header() {
                     Login
                   </Btns>
                 </Link>
-
                 <Link to="/signup">
                   <Btns>Sign up</Btns>
                 </Link>

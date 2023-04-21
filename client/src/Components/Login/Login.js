@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { login, logout } from '../../Actions/isLoginSlice';
+import { LoginWrapper } from './styled';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -62,23 +63,25 @@ const Login = () => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <input
-          name="email"
-          type="email"
-          placeholder="email"
-          required
-          value={email}
-          onChange={onChange}
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={onChange}
-        />
-        <input type="submit" value="Log In" />
+        <LoginWrapper>
+          <input
+            name="email"
+            type="email"
+            placeholder="email"
+            required
+            value={email}
+            onChange={onChange}
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={onChange}
+          />
+          <input type="submit" value="Log In" />
+        </LoginWrapper>
       </form>
       {islogin ? (
         <p>로그인 성공</p>
