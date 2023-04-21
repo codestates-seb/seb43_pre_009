@@ -110,7 +110,7 @@ const ListCard = ({ id, title, creator, contents, createdAt }) => {
 
   return (
     <CardWrapper onClick={handleClick}>
-      <div>{creator}</div>
+      <div>{title}</div>
       <div>{shortenedContent}</div>
       <div>{createdAt}</div>
     </CardWrapper>
