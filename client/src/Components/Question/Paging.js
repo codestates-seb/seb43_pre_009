@@ -34,11 +34,6 @@ const PageWrapper = styled.div`
           background-color: #f5f5f5;
         }
 
-        &.active {
-          background-color: #333;
-          color: #fff;
-        }
-
         &.disabled {
           opacity: 0.5;
           cursor: not-allowed;
