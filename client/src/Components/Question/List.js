@@ -97,7 +97,7 @@ const removeTags = (str) => {
 };
 
 // ListCard 컴포넌트
-const ListCard = ({ id, title, contents, createdAt }) => {
+const ListCard = ({ id, title, creator, contents, createdAt }) => {
   const shortenedContent = contents
     ? removeTags(contents).slice(0, 200) +
       (contents.length > 100 ? '\n...' : '')
@@ -111,6 +111,7 @@ const ListCard = ({ id, title, contents, createdAt }) => {
   return (
     <CardWrapper onClick={handleClick}>
       <div>{title}</div>
+      <div>{creator}</div>
       <div>{shortenedContent}</div>
       <div>{createdAt}</div>
     </CardWrapper>
@@ -153,6 +154,7 @@ const List = () => {
           key={post.id}
           id={post.id}
           title={post.title}
+          creator={post.creator}
           contents={post.contents}
           createdAt={post.createdAt}
         />

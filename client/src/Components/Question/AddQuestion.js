@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -232,6 +233,8 @@ const AddQuestion = () => {
   const [contents, setContents] = useState('');
   const [expect, setExpect] = useState('');
   const [createdAt, setCreatedAt] = useState('');
+  const [creator, setCreator] = useState('');
+  const isLogin = useSelector((state) => state.islogin.value);
   const navigate = useNavigate();
 
   const onChangeTitle = (e) => {
@@ -246,11 +249,35 @@ const AddQuestion = () => {
     setExpect(value);
   };
 
+  // user 닉네임을 받아오는 코드
   useEffect(() => {
-    const currentDateTime = new Date();
-    setCreatedAt(currentDateTime);
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/user');
+        const user = response.data;
+        setCreator(user.nickname); // 또는 다른 필드를 사용할 수도 있습니다.
+      } catch (error) {
+        console.error('Failed to fetch user', error);
+      }
+    };
+    fetchUser();
   }, []);
 
+  // 현재 한국의 날짜와 시간, stackoverflow 식의 표기법을 활용한 표시방법을 정의한 함수
+  useEffect(() => {
+    const currentDateTime = new Date().toLocaleString('en-US', {
+      timeZone: 'Asia/Seoul',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    const formattedDateTime = `asked ${currentDateTime}`;
+    setCreatedAt(formattedDateTime);
+  }, [createdAt]);
+
+  // 제출 버튼을 눌렀을 때 실행되는 함수
   const handleSubmit = async (e) => {
     const API_URL = 'http://localhost:3001/questions';
     e.preventDefault();
@@ -270,8 +297,10 @@ const AddQuestion = () => {
       return;
     }
 
+    // 유효성 검사를 모두 통과한 경우, 새로운 질문을 생성
     const newQuestion = {
       title,
+      creator,
       contents,
       expect,
       createdAt,
@@ -281,72 +310,96 @@ const AddQuestion = () => {
       // post 요청에 성공한 경우에만 /question 경로로 이동
       console.log(res.data);
       navigate('/question/*');
+      // navigate(`/question/${res.data.id}`);
     } catch (error) {
       console.error('예기치 못한 이유로 종료되었습니다.', error);
     }
   };
 
+  // 로그인되지 않은 상태에 대한 메세지 및 이동
+  let isMessageShown = false;
+
+  const notLoginMessage = () => {
+    if (!isLogin && !isMessageShown) {
+      const confirmed = window.confirm(
+        '로그인이 필요합니다. 로그인하시겠습니까?'
+      );
+      if (confirmed) {
+        navigate('/login');
+      } else {
+        navigate('/');
+      }
+      isMessageShown = true;
+    }
+  };
+
   return (
     <AddQuestionWrapper>
-      {/* 질문 페이지의 고정 컨텐츠 부분 */}
-      <h2>Ask a public question</h2>
-      <GuideLine />
-      <form onSubmit={handleSubmit}>
-        {/* 질문 페이지에서 quill을 사용하지 않고 바로 input을 사용한 경우 */}
-        <InputTitle>
-          <div>Title</div>
-          <div>
-            Be specific and imagine you’re asking a question to another person.
-          </div>
-          <input
-            name="title"
-            type="text"
-            value={title}
-            onChange={onChangeTitle}
-            placeholder="질문의 핵심이 드러나도록 제목을 작성해주세요"
-          />
-        </InputTitle>
+      {isLogin ? (
+        <>
+          <h2>Ask a public question</h2>
+          <GuideLine />
+          <form onSubmit={handleSubmit}>
+            {/* 질문 페이지에서 quill을 사용하지 않고 바로 input을 사용한 경우 */}
+            <InputTitle>
+              <div>Title</div>
+              <div>
+                Be specific and imagine you’re asking a question to another
+                person.
+              </div>
+              <input
+                name="title"
+                type="text"
+                value={title}
+                onChange={onChangeTitle}
+                placeholder="질문의 핵심이 드러나도록 제목을 작성해주세요"
+              />
+            </InputTitle>
 
-        {/* 질문의 내용이 담기는 부분 */}
-        <InputContents>
-          <div>What did you try and what were you expecting?</div>
-          <div>
-            Describe what you tried, what you expected to happen, and what
-            actually resulted. Minimum 20 characters.
-          </div>
-          <QuillEditorWrapper>
-            <ReactQuill
-              name="contents"
-              value={contents}
-              onChange={onChangeContents}
-              modules={modules}
-              formats={formats}
-              theme="snow"
-            />
-          </QuillEditorWrapper>
-        </InputContents>
+            {/* 질문의 내용이 담기는 부분 */}
+            <InputContents>
+              <div>What did you try and what were you expecting?</div>
+              <div>
+                Describe what you tried, what you expected to happen, and what
+                actually resulted. Minimum 20 characters.
+              </div>
+              <QuillEditorWrapper>
+                <ReactQuill
+                  name="contents"
+                  value={contents}
+                  onChange={onChangeContents}
+                  modules={modules}
+                  formats={formats}
+                  theme="snow"
+                />
+              </QuillEditorWrapper>
+            </InputContents>
 
-        {/* 질문을 통해 해결하고자 하는 부가 내용이 담기는 부분 */}
-        <InputContents>
-          <div>What did you try and what were you expecting?</div>
-          <div>
-            Describe what you tried, what you expected to happen, and what
-            actually resulted. Minimum 20 characters.
-          </div>
-          <QuillEditorWrapper>
-            <ReactQuill
-              name="expect"
-              value={expect}
-              onChange={onChangeExpect}
-              modules={modules}
-              formats={formats}
-              theme="snow"
-            />
-          </QuillEditorWrapper>
-        </InputContents>
-        {/* 제출버튼 */}
-        <SubmitBtn type="submit">Submit</SubmitBtn>
-      </form>
+            {/* 질문을 통해 해결하고자 하는 부가 내용이 담기는 부분 */}
+            <InputContents>
+              <div>What did you try and what were you expecting?</div>
+              <div>
+                Describe what you tried, what you expected to happen, and what
+                actually resulted. Minimum 20 characters.
+              </div>
+              <QuillEditorWrapper>
+                <ReactQuill
+                  name="expect"
+                  value={expect}
+                  onChange={onChangeExpect}
+                  modules={modules}
+                  formats={formats}
+                  theme="snow"
+                />
+              </QuillEditorWrapper>
+            </InputContents>
+            {/* 제출버튼 */}
+            <SubmitBtn type="submit">Submit</SubmitBtn>
+          </form>
+        </>
+      ) : (
+        <>{notLoginMessage()}</>
+      )}
     </AddQuestionWrapper>
   );
 };
