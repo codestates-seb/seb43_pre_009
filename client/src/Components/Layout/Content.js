@@ -16,7 +16,7 @@ function Content() {
       <Routes>
         {/* list로 연결 - 수정사항 : 하위 라우터를 연결하는 중첩라우팅의 경우 "와일드카드"의 개념을 활용하여 작성해야 한다 */}
         <Route path="/" element={`Home Contents`} />
-        <Route path="/post/*" element={<PostContents />} />
+        <Route path="/post/:id" element={<PostContents />} />
         <Route path="/question/*" element={<PostList />} />
         <Route path="/question/add" element={<AddQuestion />} />
         {/* 로그인으로 연결 */}
