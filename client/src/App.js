@@ -1,9 +1,14 @@
-import "./App.css";
+import './App.css';
+import Header from './Components/Layout/Header';
+import Wrapper from './Components/Layout/Wrapper';
+import Footer from './Components/Layout/Footer';
 
 function App() {
   return (
     <div className="App">
-      <h1>stackoverflow</h1>
+      <Header />
+      <Wrapper />
+      <Footer />
     </div>
   );
 }
