@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -234,7 +233,6 @@ const AddQuestion = () => {
   const [expect, setExpect] = useState('');
   const [createdAt, setCreatedAt] = useState('');
   const [creator, setCreator] = useState('');
-  const isLogin = useSelector((state) => state.islogin.value);
   const navigate = useNavigate();
 
   const onChangeTitle = (e) => {
@@ -316,90 +314,66 @@ const AddQuestion = () => {
     }
   };
 
-  // 로그인되지 않은 상태에 대한 메세지 및 이동
-  let isMessageShown = false;
-
-  const notLoginMessage = () => {
-    if (!isLogin && !isMessageShown) {
-      const confirmed = window.confirm(
-        '로그인이 필요합니다. 로그인하시겠습니까?'
-      );
-      if (confirmed) {
-        navigate('/login');
-      } else {
-        navigate('/');
-      }
-      isMessageShown = true;
-    }
-  };
-
   return (
     <AddQuestionWrapper>
-      {isLogin ? (
-        <>
-          <h2>Ask a public question</h2>
-          <GuideLine />
-          <form onSubmit={handleSubmit}>
-            {/* 질문 페이지에서 quill을 사용하지 않고 바로 input을 사용한 경우 */}
-            <InputTitle>
-              <div>Title</div>
-              <div>
-                Be specific and imagine you’re asking a question to another
-                person.
-              </div>
-              <input
-                name="title"
-                type="text"
-                value={title}
-                onChange={onChangeTitle}
-                placeholder="질문의 핵심이 드러나도록 제목을 작성해주세요"
-              />
-            </InputTitle>
+      <h2>Ask a public question</h2>
+      <GuideLine />
+      <form onSubmit={handleSubmit}>
+        {/* 질문 페이지에서 quill을 사용하지 않고 바로 input을 사용한 경우 */}
+        <InputTitle>
+          <div>Title</div>
+          <div>
+            Be specific and imagine you’re asking a question to another person.
+          </div>
+          <input
+            name="title"
+            type="text"
+            value={title}
+            onChange={onChangeTitle}
+            placeholder="질문의 핵심이 드러나도록 제목을 작성해주세요"
+          />
+        </InputTitle>
 
-            {/* 질문의 내용이 담기는 부분 */}
-            <InputContents>
-              <div>What did you try and what were you expecting?</div>
-              <div>
-                Describe what you tried, what you expected to happen, and what
-                actually resulted. Minimum 20 characters.
-              </div>
-              <QuillEditorWrapper>
-                <ReactQuill
-                  name="contents"
-                  value={contents}
-                  onChange={onChangeContents}
-                  modules={modules}
-                  formats={formats}
-                  theme="snow"
-                />
-              </QuillEditorWrapper>
-            </InputContents>
+        {/* 질문의 내용이 담기는 부분 */}
+        <InputContents>
+          <div>What did you try and what were you expecting?</div>
+          <div>
+            Describe what you tried, what you expected to happen, and what
+            actually resulted. Minimum 20 characters.
+          </div>
+          <QuillEditorWrapper>
+            <ReactQuill
+              name="contents"
+              value={contents}
+              onChange={onChangeContents}
+              modules={modules}
+              formats={formats}
+              theme="snow"
+            />
+          </QuillEditorWrapper>
+        </InputContents>
 
-            {/* 질문을 통해 해결하고자 하는 부가 내용이 담기는 부분 */}
-            <InputContents>
-              <div>What did you try and what were you expecting?</div>
-              <div>
-                Describe what you tried, what you expected to happen, and what
-                actually resulted. Minimum 20 characters.
-              </div>
-              <QuillEditorWrapper>
-                <ReactQuill
-                  name="expect"
-                  value={expect}
-                  onChange={onChangeExpect}
-                  modules={modules}
-                  formats={formats}
-                  theme="snow"
-                />
-              </QuillEditorWrapper>
-            </InputContents>
-            {/* 제출버튼 */}
-            <SubmitBtn type="submit">Submit</SubmitBtn>
-          </form>
-        </>
-      ) : (
-        <>{notLoginMessage()}</>
-      )}
+        {/* 질문을 통해 해결하고자 하는 부가 내용이 담기는 부분 */}
+        <InputContents>
+          <div>What did you try and what were you expecting?</div>
+          <div>
+            Describe what you tried, what you expected to happen, and what
+            actually resulted. Minimum 20 characters.
+          </div>
+          <QuillEditorWrapper>
+            <ReactQuill
+              name="expect"
+              value={expect}
+              onChange={onChangeExpect}
+              modules={modules}
+              formats={formats}
+              theme="snow"
+            />
+          </QuillEditorWrapper>
+        </InputContents>
+        {/* 제출버튼 */}
+        <SubmitBtn type="submit">Submit</SubmitBtn>
+      </form>
     </AddQuestionWrapper>
   );
 };
