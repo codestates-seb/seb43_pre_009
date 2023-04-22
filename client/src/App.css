@@ -9,8 +9,8 @@ u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -30,7 +30,7 @@ a:hover, a:active {text-decoration: none; color: inherit;}
 
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -54,6 +54,6 @@ body {
     padding: 50px 0 0 0;
     margin: 0;
     box-sizing: border-box;
-	font-family: 'Nanum Gothic', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 
 }
