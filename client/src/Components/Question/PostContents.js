@@ -1,31 +1,13 @@
-// PostContents.js
-import axios from 'axios';
 import { Btns } from '../Layout/styled';
-import { QuestionHeader, FlexItem, Title, QuestionContent } from './styled';
+import { QuestionHeader, FlexItem, Title, ContentsWrapper } from './styled';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
-// import { useDispatch, useSelector } from 'react-redux';
-// import { setCurrentQuestion } from '../../Actions/questionSlice';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { xonokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import parse from 'html-react-parser';
+import axios from 'axios';
 
 const PostContents = () => {
-  // const question = useSelector((state) => state.questions);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   console.log(id);
-  //   const fetchQuestion = async () => {
-  //     try {
-  //       const res = await fetch(`http://localhost:3001/questions/${id}`);
-  //       const data = await res.json();
-  //       dispatch(setCurrentQuestion(data));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchQuestion();
-  // }, [dispatch, id]);
-
   const { id } = useParams();
   const [post, setPost] = useState({});
 
@@ -34,6 +16,25 @@ const PostContents = () => {
       setPost(res.data);
     });
   }, [id]);
+
+  const replaceCodeBlocks = (domNode) => {
+    if (
+      domNode.name === 'pre' &&
+      domNode.attribs &&
+      domNode.attribs.class === 'ql-syntax' &&
+      domNode.attribs.spellcheck === 'false'
+    ) {
+      return (
+        <SyntaxHighlighter language="javascript" style={xonokai}>
+          {domNode.children[0].data}
+        </SyntaxHighlighter>
+      );
+    }
+  };
+
+  const parsedContent = parse(post.contents || '', {
+    replace: replaceCodeBlocks,
+  });
 
   return (
     <>
@@ -47,7 +48,7 @@ const PostContents = () => {
               </Btns>
             </FlexItem>
           </QuestionHeader>
-          <QuestionContent>{post.contents}</QuestionContent>
+          <ContentsWrapper>{parsedContent}</ContentsWrapper>
         </>
       ) : (
         <div>Loading...</div>

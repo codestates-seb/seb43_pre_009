@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import hljs from 'highlight.js';
 
 // 스타일 코드
 const AddQuestionWrapper = styled.div`
@@ -186,6 +187,7 @@ const GuideLine = () => {
   );
 };
 
+// Quill Editor Module
 const modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
@@ -204,8 +206,12 @@ const modules = {
     ['code', 'code-block'],
     ['clean'],
   ],
+  syntax: {
+    highlight: (text) => hljs.highlightAuto(text).value,
+  },
 };
 
+// Quill Editor Formats
 const formats = [
   'header',
   'bold',
