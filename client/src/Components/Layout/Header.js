@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../Actions/isLoginSlice';
+import { useSelector } from 'react-redux';
+
 import { ReactComponent as Logo } from '../../logo-stackoverflow.svg';
 import {
   Btns,
@@ -12,10 +12,25 @@ import {
 
 function Header() {
   const islogin = useSelector((state) => state.islogin.value);
-  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout()); // 로그아웃 액션 디스패치
+    fetch('http://localhost:3001/logout', {
+      method: 'POST',
+      credentials: 'include',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // 로그아웃 성공
+          console.log('로그아웃 되었습니다.');
+        } else {
+          // 로그아웃 실패
+          console.log('로그아웃 실패');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
