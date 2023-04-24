@@ -16,6 +16,9 @@ public class QuestionDto {
     private String created_at; // 작성 시간
     private String updated_at; // 수정 시간
     private int view_count; // 조회수
+    private boolean is_Accepted; // 답변 채택 여부
+    private long accepted_Answer_Id; // 채택된 답변 ID
+
 }
 
 
