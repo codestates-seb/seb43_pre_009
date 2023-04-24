@@ -1,5 +1,6 @@
 package com.team.SEB_43_pre09.question.service;
 
+import com.team.SEB_43_pre09.answer.entity.Answer;
 import com.team.SEB_43_pre09.question.entity.Question;
 import com.team.SEB_43_pre09.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,9 @@ public class QuestionService {
         questionRepository.deleteById(id);
     }
 
+    public Question acceptAnswer(Question question, Answer answer) {
+        question.setAcceptedAnswer(answer);
+        return questionRepository.save(question);
+    }
 }
 
