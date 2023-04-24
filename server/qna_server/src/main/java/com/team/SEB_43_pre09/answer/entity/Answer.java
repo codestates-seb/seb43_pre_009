@@ -1,5 +1,7 @@
 package com.team.SEB_43_pre09.answer.entity;
 
+import com.team.SEB_43_pre09.member.entity.MemberEntity;
+import com.team.SEB_43_pre09.question.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,17 +14,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "answer_table") // TODO 테이블 이름 정하기
+@Table(name = "ANSWERS") // TODO 테이블 이름 정하기 -> 임시로 정함.
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // IDENTITY 전략으로 기본키 할당(데이터베이스에서 기본키 대신 생성)
     private long answer_id; // 답변 고유 번호
-
-    @Column
-    private long question_id; // 답변이 달린 질문의 고유번호
-
-    @Column
-    private long member_id; // 답변을 등록한 회원의 고유번호
 
     @Column(nullable = false, length = 1000)
     private String answer_title; // 답변 제목
@@ -30,10 +26,10 @@ public class Answer {
     @Column(nullable = false, length = 5000)
     private String answer_content; // 답변 내용
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime answer_created_at; // 답변 등록 시간
 
-    @Column
+    @Column(nullable = false, name = "LAST_ANSWER_MODIFIED_AT")
     private LocalDateTime answer_modified_at; // 답변 수정 시간
 
     @Enumerated(EnumType.STRING)
@@ -54,4 +50,21 @@ public class Answer {
             this.stepDescription = stepDescription;
         }
     }
+
+    @ManyToOne
+    @JoinColumn(name = "QUESTION_ID") // 여러 건의 답변은 하나의 질문에 달릴 수 있으므로, 다대일 관계로 맵핑
+    private Question question;
+
+    public void addQuestion(Question question) {
+        this.question = question;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID") // 여러 건의 답변은 하나의 멤버가 달 수 있으므로, 다대일 관계로 맵핑
+    private MemberEntity member;
+
+    public void addMember(MemberEntity member) {
+        this.member = member;
+    }
 }
+

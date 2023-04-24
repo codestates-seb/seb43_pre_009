@@ -5,6 +5,8 @@ import com.team.SEB_43_pre09.answer.dto.AnswerPostDto;
 import com.team.SEB_43_pre09.answer.entity.Answer;
 import com.team.SEB_43_pre09.answer.mapper.AnswerMapper;
 import com.team.SEB_43_pre09.answer.service.AnswerService;
+import com.team.SEB_43_pre09.member.service.MemberService;
+import com.team.SEB_43_pre09.question.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,26 +18,23 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-/**
- * 서비스계층 까지 기능 구현 완료 (2/7)
- *
- * - DI 적용
- * - Mapstruct Mapper 적용
- *
- * @author  유한별
- * @version 1.0.2
- */
 @RestController // 컨트롤러 설정
 @RequestMapping("/answers")
 @Validated
 public class AnswerController {
+    private final static String ANSWER_DEFAULT_URL = "/answers";
     private final AnswerService answerService;
     private final AnswerMapper mapper;
+    private final MemberService memberService;
+    private final QuestionService questionService;
 
-    public AnswerController(AnswerService answerService, AnswerMapper mapper) {
+
+    public AnswerController(AnswerService answerService,
+                            AnswerMapper mapper, MemberService memberService, QuestionService questionService) {
         this.answerService = answerService;
         this.mapper = mapper;
+        this.memberService = memberService;
+        this.questionService = questionService;
     }
 
     /** 답변을 등록하는 핸들러 메서드 **/
@@ -76,3 +75,4 @@ public class AnswerController {
 //        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.OK);
 //    }
 }
+
