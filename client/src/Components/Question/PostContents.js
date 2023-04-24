@@ -41,7 +41,9 @@ const PostContents = () => {
       {post ? (
         <>
           <QuestionHeader>
-            <Title>{post.title}</Title>
+            <Title>
+              <div>{post.title}</div>
+            </Title>
             <FlexItem>
               <Btns>
                 <a href="/question/add">Ask Question</a>
@@ -53,6 +55,9 @@ const PostContents = () => {
       ) : (
         <div>Loading...</div>
       )}
+      <div>
+        <a href={`/question/edit/${post.id}`}>edit</a>
+      </div>
     </>
   );
 };

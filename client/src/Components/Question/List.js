@@ -26,28 +26,30 @@ const TitleWrapper = styled.div`
     flex: 1;
   }
 
-  button a {
+  button {
     display: block;
+    justify-content: center;
+    align-items: center;
+    /* line-height: 20px; 글자 수직 가운데 정렬 */
+    font-size: 0.8rem;
     background-color: #0795fe;
-    width: 90px;
-    height: 20px;
+    width: 120px;
+    height: 25px;
     color: white;
     border: none;
     border-radius: 3px;
     padding: 5px 10px;
     margin: 5px;
-    font-size: 1em;
     text-align: center;
-    line-height: 20px; /* 글자 수직 가운데 정렬 */
     box-shadow: inset 0px 2px 4px rgba(255, 255, 255, 0.5);
     transition: background-color 0.1s ease-in-out;
   }
 
-  button a:hover {
+  button :hover {
     background-color: #0575e6;
   }
 
-  button a:active {
+  button :active {
     background-color: #0c7bdc;
     box-shadow: none;
   }

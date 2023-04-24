@@ -261,7 +261,7 @@ const AddQuestion = () => {
         const user = response.data;
         setCreator(user.nickname); // 또는 다른 필드를 사용할 수도 있습니다.
       } catch (error) {
-        console.error('Failed to fetch user', error);
+        console.error('사용자를 받아오는데 실패했습니다', error);
       }
     };
     fetchUser();

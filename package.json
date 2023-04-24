@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "highlight.js": "^11.7.0",
-    "prop-types": "^15.8.1",
-    "react-js-pagination": "^3.0.3",
-    "react-syntax-highlighter": "^15.5.0"
-  }
-}
