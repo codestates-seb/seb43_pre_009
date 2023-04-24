@@ -45,9 +45,10 @@ public class QuestionService {
         questionRepository.deleteById(id);
     }
 
+    // 특정 Question 엔티티에 대해 채택된 답변을 설정하는 메서드
     public Question acceptAnswer(Question question, Answer answer) {
-        question.setAcceptedAnswer(answer);
-        return questionRepository.save(question);
+        question.setAcceptedAnswer(answer); // 특정 Question 엔티티에 대해 채택된 답변을 설정
+        return questionRepository.save(question); // QuestionRepository를 통해 엔티티를 저장하고 업데이트된 Question 객체 반환
     }
 }
 
