@@ -29,3 +29,16 @@ export const Title = styled.h1`
 export const QuestionContent = styled.div`
   padding: 24px 0 24px 24px;
 `;
+
+// 컨텐츠 내용 스타일링
+export const ContentsWrapper = styled.div`
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 20px;
+  /* 코드블럭이 속한 pre 태그에 대한 스타일 */
+  pre {
+    background-color: #f6f6f6;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+`;

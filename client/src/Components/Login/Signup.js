@@ -15,7 +15,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const signupUser = async (email, password, membername) => {
-    const response = await fetch('http://localhost:3001/signup', {
+    const response = await fetch('http://localhost:3002/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

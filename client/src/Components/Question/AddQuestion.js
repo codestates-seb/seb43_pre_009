@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import hljs from 'highlight.js';
 
 // 스타일 코드
 const AddQuestionWrapper = styled.div`
@@ -186,6 +187,7 @@ const GuideLine = () => {
   );
 };
 
+// Quill Editor Module
 const modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
@@ -204,8 +206,12 @@ const modules = {
     ['code', 'code-block'],
     ['clean'],
   ],
+  syntax: {
+    highlight: (text) => hljs.highlightAuto(text).value,
+  },
 };
 
+// Quill Editor Formats
 const formats = [
   'header',
   'bold',
@@ -255,7 +261,7 @@ const AddQuestion = () => {
         const user = response.data;
         setCreator(user.nickname); // 또는 다른 필드를 사용할 수도 있습니다.
       } catch (error) {
-        console.error('Failed to fetch user', error);
+        console.error('사용자를 받아오는데 실패했습니다', error);
       }
     };
     fetchUser();
