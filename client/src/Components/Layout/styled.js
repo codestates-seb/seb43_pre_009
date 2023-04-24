@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const themeColor = '#f28225';
 
-export const Btns = styled.div`
+export const Btns = styled.button`
   display: inline-block;
   padding: 8px 8px;
   background-color: ${(props) => (props.bgcolor ? props.bgcolor : '#009bfa')};
@@ -14,6 +14,7 @@ export const Btns = styled.div`
   margin-left: 4px;
   border: 1px solid ${(props) => props.border === '#1a759b'};
   position: relative;
+  cursor: pointer;
   &::after {
     content: '';
     width: 100%;
