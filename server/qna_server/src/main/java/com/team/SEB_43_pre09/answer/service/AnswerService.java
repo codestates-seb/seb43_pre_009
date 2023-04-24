@@ -30,7 +30,7 @@ public class AnswerService {
         // 회원이 존재하는지 확인
 //        memberService.findVerifiedMember(answer.getMember().getMemberId()); // TODO memberService에 맞춰 수정해야함.
 
-        // 질문이 존재하는지 확인
+
         Answer savedAnswer = saveAnswer(answer);
         return savedAnswer;
     }
