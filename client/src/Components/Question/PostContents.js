@@ -39,6 +39,14 @@ const PostContents = () => {
     replace: replaceCodeBlocks,
   });
 
+  const handleEdit = () => {
+    if (post.creator === localStorage.getItem('userId')) {
+      navigate(`/question/edit/${id}`);
+    } else {
+      alert('수정할 권한이 없습니다.');
+    }
+  };
+
   const handleDelete = () => {
     axios.delete(`http://localhost:3001/questions/${id}`).then((res) => {
       console.log(res);
@@ -67,9 +75,7 @@ const PostContents = () => {
       ) : (
         <div>Loading...</div>
       )}
-      <div>
-        <a href={`/question/edit/${post.id}`}>edit</a>
-      </div>
+      <button onClick={handleEdit}>edit</button>
       <button onClick={handleDelete}>delete</button>
     </>
   );
