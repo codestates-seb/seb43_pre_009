@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import hljs from 'highlight.js';
@@ -216,6 +216,7 @@ const UpdateQuestion = () => {
   const [expect, setExpect] = useState('');
   const [createdAt, setCreatedAt] = useState('');
   const [updateAt, setUpdateAt] = useState('');
+  const navigate = useNavigate();
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -281,6 +282,7 @@ const UpdateQuestion = () => {
         // 수정 요청이 실패했을 때 실행되는 코드
         console.error(err);
       });
+    navigate(`/post/${id}`);
   };
 
   return (

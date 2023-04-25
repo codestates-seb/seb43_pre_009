@@ -241,30 +241,21 @@ const AddQuestion = () => {
   const [creator, setCreator] = useState('');
   const navigate = useNavigate();
 
-  const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const onChangeContents = (value) => {
-    setContents(value);
-  };
-
-  const onChangeExpect = (value) => {
-    setExpect(value);
-  };
-
   // user 닉네임을 받아오는 코드
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get('/api/user');
-        const user = response.data;
-        setCreator(user.nickname); // 또는 다른 필드를 사용할 수도 있습니다.
-      } catch (error) {
-        console.error('사용자를 받아오는데 실패했습니다', error);
+    // user 닉네임을 받아오는 코드
+    const cookies = document.cookie.split('; ');
+    let memberName;
+    for (let i = 0; i < cookies.length; i++) {
+      const [name, value] = cookies[i].split('=');
+      if (name === 'memberName') {
+        memberName = value;
+        break;
       }
-    };
-    fetchUser();
+    }
+
+    // memberName 변수에 쿠키에서 가져온 값을 할당합니다.
+    setCreator(memberName);
   }, []);
 
   // 현재 한국의 날짜와 시간, stackoverflow 식의 표기법을 활용한 표시방법을 정의한 함수
@@ -279,7 +270,7 @@ const AddQuestion = () => {
     });
     const formattedDateTime = `asked ${currentDateTime}`;
     setCreatedAt(formattedDateTime);
-  }, [createdAt]);
+  }, []);
 
   // 제출 버튼을 눌렀을 때 실행되는 함수
   const handleSubmit = async (e) => {
@@ -318,6 +309,18 @@ const AddQuestion = () => {
     } catch (error) {
       console.error('예기치 못한 이유로 종료되었습니다.', error);
     }
+  };
+
+  const onChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const onChangeContents = (value) => {
+    setContents(value);
+  };
+
+  const onChangeExpect = (value) => {
+    setExpect(value);
   };
 
   return (

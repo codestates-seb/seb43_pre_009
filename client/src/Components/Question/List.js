@@ -76,9 +76,17 @@ const CardWrapper = styled.div`
     text-align: left;
   }
 
+  div:nth-child(3) {
+    color: #f37521;
+    font-weight: 600;
+    font-size: 11px;
+    text-align: right;
+    margin-top: 10px;
+  }
+
   div:last-child {
     margin-top: 10px;
-    font-size: 10px;
+    font-size: 11px;
     text-align: right;
   }
 
@@ -115,11 +123,13 @@ const ListCard = ({ id, title, creator, contents, createdAt }) => {
     <CardWrapper onClick={handleClick}>
       <div>{title}</div>
       <div>{shortenedContent}</div>
+      <div>{creator}</div>
       <div>{createdAt}</div>
     </CardWrapper>
   );
 };
 
+// 리스트업 최종 렌더링 컴포넌트
 const List = () => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -127,7 +137,7 @@ const List = () => {
 
   // Redux Toolkit으로 로그인 상태 확인
   const isLogin = useSelector((state) => state.islogin.value);
-
+  console.log(isLogin);
   const handleAskQuestionClick = () => {
     if (isLogin) {
       navigate('/question/add');
@@ -143,6 +153,7 @@ const List = () => {
     }
   };
 
+  // 게시글 목록 불러오기
   useEffect(() => {
     axios.get('http://localhost:3001/questions').then((res) => {
       // 최신순으로 정렬

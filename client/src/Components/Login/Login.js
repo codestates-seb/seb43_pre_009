@@ -23,7 +23,6 @@ const Login = () => {
         credentials: 'include', // 쿠키를 보내기 위한 옵션 설정
       });
       const data = await response.json();
-
       return data;
     } catch (error) {
       console.log(error);
@@ -52,7 +51,7 @@ const Login = () => {
         // setIsLoggedin(true);
         dispatch(login());
         navigate('/');
-        window.location.reload();
+        // window.location.reload(); ===> 이 코드로 인해 현재 어플리케이션의 로그인 상태가 유지되지 않는 문제 발생
       } else {
         console.log('로그인 실패');
         dispatch(logout());
