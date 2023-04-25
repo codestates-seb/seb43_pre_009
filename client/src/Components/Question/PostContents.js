@@ -1,7 +1,7 @@
 import axios from 'axios';
 import parse from 'html-react-parser';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { xonokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { QuestionHeader, FlexItem, Title, ContentsWrapper } from './styled';
@@ -12,6 +12,7 @@ import AnswerList from './AnswerList';
 const PostContents = () => {
   const { id } = useParams();
   const [post, setPost] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`http://localhost:3001/questions/${id}`).then((res) => {
@@ -38,6 +39,13 @@ const PostContents = () => {
     replace: replaceCodeBlocks,
   });
 
+  const handleDelete = () => {
+    axios.delete(`http://localhost:3001/questions/${id}`).then((res) => {
+      console.log(res);
+    });
+    navigate('/question/*');
+  };
+
   return (
     <>
       {post ? (
@@ -62,6 +70,7 @@ const PostContents = () => {
       <div>
         <a href={`/question/edit/${post.id}`}>edit</a>
       </div>
+      <button onClick={handleDelete}>delete</button>
     </>
   );
 };
