@@ -37,12 +37,32 @@ const AnswerList = ({ id }) => {
   };
   //
 
+  const handleDelete = (answerId) => {
+    if (window.confirm('Are you sure to delete this answer?')) {
+      axios
+        .delete(`http://localhost:3001/answer/${answerId}`)
+        .then(() => {
+          setAnswers((prevAnswers) =>
+            prevAnswers.filter((answer) => answer.id !== answerId)
+          );
+          alert('Your answer has been deleted.');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <>
       {answer.map((answer) => (
         <div key={answer.id}>
           <div>{parsedContent(answer.contents)}</div>
           <div>{answer.createdAt}</div>
+          <div>
+            <button>Edit</button>
+            <button onClick={() => handleDelete(answer.id)}>Delete</button>
+          </div>
         </div>
       ))}
     </>
