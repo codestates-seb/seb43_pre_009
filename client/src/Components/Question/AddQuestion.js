@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import hljs from 'highlight.js';
 
 // 스타일 코드
 const AddQuestionWrapper = styled.div`
@@ -186,6 +187,7 @@ const GuideLine = () => {
   );
 };
 
+// Quill Editor Module
 const modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
@@ -204,8 +206,12 @@ const modules = {
     ['code', 'code-block'],
     ['clean'],
   ],
+  syntax: {
+    highlight: (text) => hljs.highlightAuto(text).value,
+  },
 };
 
+// Quill Editor Formats
 const formats = [
   'header',
   'bold',
@@ -232,6 +238,7 @@ const AddQuestion = () => {
   const [contents, setContents] = useState('');
   const [expect, setExpect] = useState('');
   const [createdAt, setCreatedAt] = useState('');
+  const [creator, setCreator] = useState('');
   const navigate = useNavigate();
 
   const onChangeTitle = (e) => {
@@ -246,11 +253,35 @@ const AddQuestion = () => {
     setExpect(value);
   };
 
+  // user 닉네임을 받아오는 코드
   useEffect(() => {
-    const currentDateTime = new Date();
-    setCreatedAt(currentDateTime);
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/user');
+        const user = response.data;
+        setCreator(user.nickname); // 또는 다른 필드를 사용할 수도 있습니다.
+      } catch (error) {
+        console.error('사용자를 받아오는데 실패했습니다', error);
+      }
+    };
+    fetchUser();
   }, []);
 
+  // 현재 한국의 날짜와 시간, stackoverflow 식의 표기법을 활용한 표시방법을 정의한 함수
+  useEffect(() => {
+    const currentDateTime = new Date().toLocaleString('en-US', {
+      timeZone: 'Asia/Seoul',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    const formattedDateTime = `asked ${currentDateTime}`;
+    setCreatedAt(formattedDateTime);
+  }, [createdAt]);
+
+  // 제출 버튼을 눌렀을 때 실행되는 함수
   const handleSubmit = async (e) => {
     const API_URL = 'http://localhost:3001/questions';
     e.preventDefault();
@@ -270,8 +301,10 @@ const AddQuestion = () => {
       return;
     }
 
+    // 유효성 검사를 모두 통과한 경우, 새로운 질문을 생성
     const newQuestion = {
       title,
+      creator,
       contents,
       expect,
       createdAt,
@@ -281,6 +314,7 @@ const AddQuestion = () => {
       // post 요청에 성공한 경우에만 /question 경로로 이동
       console.log(res.data);
       navigate('/question/*');
+      // navigate(`/question/${res.data.id}`);
     } catch (error) {
       console.error('예기치 못한 이유로 종료되었습니다.', error);
     }
@@ -288,7 +322,6 @@ const AddQuestion = () => {
 
   return (
     <AddQuestionWrapper>
-      {/* 질문 페이지의 고정 컨텐츠 부분 */}
       <h2>Ask a public question</h2>
       <GuideLine />
       <form onSubmit={handleSubmit}>

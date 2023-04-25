@@ -6,7 +6,7 @@ import { Btns } from '../Layout/styled';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [membername, setMembername] = useState('');
 
   const [modalContent, setModalContent] = useState('');
 
@@ -14,13 +14,13 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const signupUser = async (email, password, nickname) => {
-    const response = await fetch('http://localhost:3001/signup', {
+  const signupUser = async (email, password, membername) => {
+    const response = await fetch('http://localhost:3002/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password, nickname }),
+      body: JSON.stringify({ email, password, membername }),
       credentials: 'include',
     });
     const data = await response.json();
@@ -33,7 +33,7 @@ const Signup = () => {
 
   const openModal = () => {
     setShowModal(true);
-    setModalContent(`${nickname}`);
+    setModalContent(`${membername}`);
   };
 
   const closeModal = () => {
@@ -44,7 +44,7 @@ const Signup = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const data = await signupUser(email, password, nickname);
+      const data = await signupUser(email, password, membername);
       console.log('회원가입 성공:', data);
     } catch (error) {
       console.log('회원가입 실패:', error.message);
@@ -60,8 +60,8 @@ const Signup = () => {
       setEmail(value);
     } else if (name === 'password') {
       setPassword(value);
-    } else if (name === 'nickname') {
-      setNickname(value);
+    } else if (name === 'membername') {
+      setMembername(value);
     }
   };
 
@@ -85,11 +85,11 @@ const Signup = () => {
           onChange={onChange}
         />
         <input
-          name="nickname"
+          name="membername"
           type="text"
-          placeholder="nickname"
+          placeholder="membername"
           required
-          value={nickname}
+          value={membername}
           onChange={onChange}
         />
         <input type="submit" value="Sign Up" onClick={openModal} />

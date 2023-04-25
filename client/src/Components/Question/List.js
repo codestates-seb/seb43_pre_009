@@ -1,7 +1,8 @@
-// List.js
+// List.js 리스트의 기능을 담당하는 컴포넌트
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Paging from './Paging';
@@ -25,28 +26,30 @@ const TitleWrapper = styled.div`
     flex: 1;
   }
 
-  button a {
+  button {
     display: block;
+    justify-content: center;
+    align-items: center;
+    /* line-height: 20px; 글자 수직 가운데 정렬 */
+    font-size: 0.8rem;
     background-color: #0795fe;
-    width: 90px;
-    height: 20px;
+    width: 120px;
+    height: 25px;
     color: white;
     border: none;
     border-radius: 3px;
     padding: 5px 10px;
     margin: 5px;
-    font-size: 1em;
     text-align: center;
-    line-height: 20px; /* 글자 수직 가운데 정렬 */
     box-shadow: inset 0px 2px 4px rgba(255, 255, 255, 0.5);
     transition: background-color 0.1s ease-in-out;
   }
 
-  button a:hover {
+  button :hover {
     background-color: #0575e6;
   }
 
-  button a:active {
+  button :active {
     background-color: #0c7bdc;
     box-shadow: none;
   }
@@ -97,7 +100,7 @@ const removeTags = (str) => {
 };
 
 // ListCard 컴포넌트
-const ListCard = ({ id, title, contents, createdAt }) => {
+const ListCard = ({ id, title, creator, contents, createdAt }) => {
   const shortenedContent = contents
     ? removeTags(contents).slice(0, 200) +
       (contents.length > 100 ? '\n...' : '')
@@ -120,6 +123,25 @@ const ListCard = ({ id, title, contents, createdAt }) => {
 const List = () => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+
+  // Redux Toolkit으로 로그인 상태 확인
+  const isLogin = useSelector((state) => state.islogin.value);
+
+  const handleAskQuestionClick = () => {
+    if (isLogin) {
+      navigate('/question/add');
+    } else {
+      const result = window.confirm(
+        '로그인이 필요합니다. 로그인 하시겠습니까?'
+      );
+      if (result) {
+        navigate('/login');
+      } else {
+        navigate('/');
+      }
+    }
+  };
 
   useEffect(() => {
     axios.get('http://localhost:3001/questions').then((res) => {
@@ -144,8 +166,9 @@ const List = () => {
     <ListWrapper>
       <TitleWrapper>
         <div>Question List</div>
-        <button>
-          <a href="/question/add">Ask Question</a>
+        <button onClick={handleAskQuestionClick}>
+          {/* <a href="/question/add">Ask Question</a> */}
+          Ask Question
         </button>
       </TitleWrapper>
       {currentPosts.map((post) => (
@@ -153,6 +176,7 @@ const List = () => {
           key={post.id}
           id={post.id}
           title={post.title}
+          creator={post.creator}
           contents={post.contents}
           createdAt={post.createdAt}
         />

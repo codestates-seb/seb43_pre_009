@@ -1,3 +1,4 @@
+// 실질적인 기능을 담당하지 않고 페이지를 구성하는 컴포넌트를 불러오는 역할만 한다.
 import List from './List';
 import styled from 'styled-components';
 

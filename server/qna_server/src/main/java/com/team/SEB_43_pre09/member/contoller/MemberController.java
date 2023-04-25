@@ -3,10 +3,12 @@ package com.team.SEB_43_pre09.member.contoller;
 import com.team.SEB_43_pre09.member.dto.MemberDTO;
 import com.team.SEB_43_pre09.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("/members")
@@ -16,15 +18,15 @@ public class MemberController {
     // 생성자 주입
     private final MemberService memberService;
     // 회원가입 기능
-    @GetMapping("/member/save")
-    public String saveForm() {return "save";}
+    @GetMapping("/member/join")
+    public String saveForm() {return "join";}
 
-    @PostMapping("/member/save")
+    @PostMapping("/member/join")
     public String save(@ModelAttribute MemberDTO memberDTO) {
-        System.out.println("MemberController.save");
+        System.out.println("MemberController.join");
         System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
-        return "login"; // TODO : 로그인 페이지 api 받아오기
+        return "login"; // TODO : 로그인 페이지 api로 수정예정
     }
 
     @GetMapping("/member/login")
@@ -45,4 +47,42 @@ public class MemberController {
         }
     }
 
+//    @GetMapping("/member/check/") // 회원 전체 조회 (요구사항 정의서에 없습니다.)
+//    public String findAll(Model model) {
+//        List<MemberDTO> memberDTOList = memberService.findAll();
+//        model.addAttribute("memberList", memberDTOList);
+//        return "list"; // 이후 회원 전체 조회 페이지 생성시 api 변경
+//    }
+
+    @GetMapping("/member/profile/") // 회원 상세 페이지
+    public String findById(@PathVariable String id, Model model) {
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member", memberDTO);
+        return "profile"; // TODO : 이후 마이페이지 구현시 api 수정
+    }
+
+    @GetMapping("/member/patch") // 회원정보 수정 페이지
+    public String updateForm(HttpSession session, Model model) {
+        String myEmail = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.updateForm(myEmail);
+        model.addAttribute("updateMember", memberDTO);
+        return "update"; // TODO : 회원 수정 페이지 api 추가
+    }
+    @PostMapping("/member/update")
+    public String update(@ModelAttribute MemberDTO memberDTO) {
+        memberService.update(memberDTO);
+        return "redirect: /member/patch" + memberDTO.getMember_id(); // TODO : 회원 마이페이지 페이지 api로 변경
+    }
+
+    @GetMapping("/member/delete/{id}")
+    public String deleteById(@PathVariable String id) {
+        memberService.deleteById(id);
+        return "delete"; // TODO: 삭제 완료 api
+    }
+
+    @GetMapping("/member/logout") // 로그아웃 기능
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "index"; // TODO : 로그아웃 후 메인페이지 api 리턴
+    }
 }

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 const themeColor = '#f28225';
 
 export const Btns = styled.div`
+  display: inline-block;
   padding: 8px 8px;
   background-color: ${(props) => (props.bgcolor ? props.bgcolor : '#009bfa')};
   color: ${(props) => (props.color ? props.color : 'white')};
@@ -51,6 +52,7 @@ export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 `;
 
 export const TopBarContainer = styled.div`
@@ -124,7 +126,7 @@ export const Text = styled.div`
 export const ContentWrapper = styled.div`
   max-width: 1100px;
   width: calc(100% - 164px);
-  padding: 24px;
+  padding: 24px 0 24px 24px;
   border-left: 1px solid #d7d9dc;
   box-sizing: border-box;
 `;
