@@ -3,6 +3,10 @@ server:
 
 # database 연동 설정
 spring:
+  h2:
+    console:
+      enable: true
+      path: /h2
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    TODO : 데이터베이스 연동 해야합니다.
@@ -19,3 +23,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+  logging:
+    level:
+      org:
+        springframework:
+          orm:
+            jpa: DEBUG  # DEBUG 로그 레벨을 지정한 부분의 로그를 확인할 수 있다.
