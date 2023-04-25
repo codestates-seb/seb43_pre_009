@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.lang.reflect.Member;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -30,6 +32,9 @@ public class MemberEntity {
     private String last_login_at;
     @Column
     private Boolean secession;
+    // 추가
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     /** Member와 Reputation 간에 일대일 연관 관계를 매핑하기 위해 추가된 코드입니다. by 유한별*/
     @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

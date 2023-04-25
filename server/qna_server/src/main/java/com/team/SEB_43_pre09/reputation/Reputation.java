@@ -19,7 +19,7 @@ public class Reputation {
     @Column(nullable = false)
     private int reputation_count; // 평판
 
-    /** Reputation과 Member 간에 1대1 연관 관계를 매핑하기 위한 Solution 코드입니다. */
+    /** Reputation과 Member 간에 1대1 연관 관계를 매핑하기 위한 코드입니다. */
     @OneToOne
     @JoinColumn(name = "MEMBER_ID")
     private MemberEntity member;
