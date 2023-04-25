@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { ReactComponent as Logo } from '../../logo-stackoverflow.svg';
 import {
@@ -11,27 +10,25 @@ import {
 } from './styled';
 
 function Header() {
-  const islogin = useSelector((state) => state.islogin.value);
-
-  const handleLogout = () => {
-    fetch('http://localhost:3001/logout', {
-      method: 'POST',
-      credentials: 'include',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          // 로그아웃 성공
-          console.log('로그아웃 되었습니다.');
-        } else {
-          // 로그아웃 실패
-          console.log('로그아웃 실패');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:3002/logout', {
+        method: 'POST',
+        credentials: 'include', // 쿠키를 보내기 위한 옵션 설정
       });
+      const data = await response.json();
+      window.location.reload();
+      return data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   };
+
+  const cookies = document.cookie.split(';');
+  const isLoggedIn = cookies.some((cookie) =>
+    cookie.trim().startsWith('isLoggedin=')
+  );
 
   return (
     <>
@@ -40,9 +37,8 @@ function Header() {
           <HeaderLogo href="/">
             <Logo />
           </HeaderLogo>
-          <h1>{`${islogin}`}</h1>
           <TopBarBtn>
-            {islogin ? (
+            {isLoggedIn ? (
               <Btns onClick={handleLogout}>Logout</Btns>
             ) : (
               <>

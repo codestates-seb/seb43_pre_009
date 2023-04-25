@@ -4,7 +4,7 @@ const isLoginSlice = createSlice({
   name: 'islogin',
 
   initialState: {
-    value: false,
+    value: '',
   },
 
   reducers: {
@@ -17,6 +17,6 @@ const isLoginSlice = createSlice({
   },
 });
 
-export const { login, logout } = isLoginSlice.actions;
+export const { login, logout, setMembers } = isLoginSlice.actions;
 
 export default isLoginSlice.reducer;

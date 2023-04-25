@@ -23,6 +23,7 @@ const Login = () => {
         credentials: 'include', // 쿠키를 보내기 위한 옵션 설정
       });
       const data = await response.json();
+
       return data;
     } catch (error) {
       console.log(error);
@@ -51,6 +52,7 @@ const Login = () => {
         // setIsLoggedin(true);
         dispatch(login());
         navigate('/');
+        window.location.reload();
       } else {
         console.log('로그인 실패');
         dispatch(logout());
