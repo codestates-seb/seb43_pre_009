@@ -43,8 +43,9 @@ const Profile = () => {
     if (!memberNameCookie || !aboutmeCookie) {
       navigate('/login');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+  }, [navigate]);
+
 
   return (
     <ProfileWrapper>

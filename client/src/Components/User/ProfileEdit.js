@@ -7,10 +7,12 @@ import axios from 'axios';
 const ProfileEdit = () => {
   const [showOutModal, setShowOutModal] = useState(false);
   const [showChangeModal, setShowChangeModal] = useState(false);
+  const [newAboutMe, setNewAboutMe] = useState('');
 
   const [memberName, setMemberName] = useState('');
   const [aboutme, setAboutMe] = useState('');
   const [myemail, setMyEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   useEffect(() => {
     // 쿠키에서 memberName과 aboutme 값을 가져와 상태값으로 설정
@@ -73,9 +75,38 @@ const ProfileEdit = () => {
     setShowChangeModal(!showChangeModal);
   };
 
-  const changePassword = () => {
-    setShowChangeModal(false);
-    navigate('/user');
+  const handlePasswordChange = () => {
+    axios
+      .put(`http://localhost:3002/members?email=${myemail}`, {
+        password: newPassword,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('There was a problem with the axios operation:', error);
+      });
+  };
+
+  const passwordChange = (event) => {
+    setNewPassword(event.target.value);
+  };
+
+  const handleAboutMeChange = () => {
+    axios
+      .put(`http://localhost:3002/members/${myemail}/aboutme`, {
+        newAboutMe: newAboutMe,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('There was a problem with the axios operation:', error);
+      });
+  };
+
+  const aboutMeChange = (event) => {
+    setNewAboutMe(event.target.value);
   };
 
   const navigate = useNavigate();
@@ -95,9 +126,13 @@ const ProfileEdit = () => {
         <Btns>edit</Btns>
       </div>
       <div>
-        <form>
-          <input type="text" placeholder={`${aboutme}`} />
-        </form>
+        <input
+          type="text"
+          value={newAboutMe}
+          onChange={aboutMeChange}
+          placeholder={`${aboutme}`}
+        />
+        <Btns onClick={handleAboutMeChange}>About Me 변경하기</Btns>
       </div>
       <div>
         <Btns onClick={openModalOut}>회원탈퇴</Btns>
@@ -110,13 +145,20 @@ const ProfileEdit = () => {
             </Modal>
           </ModalBackdrop>
         ) : null}
+
         <Btns onClick={openModalChange}>비밀번호 변경</Btns>
         {showChangeModal ? (
           <ModalBackdrop onClick={openModalChange}>
             <Modal onClick={(event) => event.stopPropagation()}>
               <h3>비밀번호 변경 모달</h3>
-              <input type="text" />
-              <Btns onClick={changePassword}>비밀번호 변경하기</Btns>
+              <input
+                type="text"
+                value={newPassword}
+                onChange={passwordChange}
+              />
+              <Btns onClick={() => handlePasswordChange()}>
+                비밀번호 변경하기
+              </Btns>
               <Btns onClick={openModalChange}>변경취소하기</Btns>
             </Modal>
           </ModalBackdrop>
