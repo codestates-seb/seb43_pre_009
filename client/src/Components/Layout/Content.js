@@ -9,6 +9,7 @@ import Signup from '../Login/Signup';
 import PostContents from '../Question/PostContents';
 import AddQuestion from '../Question/AddQuestion';
 import UpdateQuestion from '../Question/UpdateQuestion';
+import Home from './Home';
 
 function Content() {
   // TODO 로그인/회원가입 페이지에 따로 적용되는 스타일
@@ -28,7 +29,7 @@ function Content() {
     <ContentWrapper style={widePageStyle}>
       <Routes>
         {/* list로 연결 - 수정사항 : 하위 라우터를 연결하는 중첩라우팅의 경우 "와일드카드"의 개념을 활용하여 작성해야 한다 */}
-        <Route path="/" element={`Home Contents`} />
+        <Route path="/" element={<Home />} />
         <Route path="/post/:id" element={<PostContents />} />
         <Route path="/question/*" element={<PostList />} />
         <Route path="/question/add" element={<AddQuestion />} />
