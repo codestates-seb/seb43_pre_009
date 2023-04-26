@@ -7,6 +7,13 @@ import axios from 'axios';
 
 const ProfileEditWrapper = styled.div`
   margin: 30px;
+  .buttons {
+    padding: 10px 0px 10px 0px;
+  }
+  p,
+  h2 {
+    padding: 20px 0px 20px 0px;
+  }
 `;
 
 const ProfileEdit = () => {
@@ -124,9 +131,9 @@ const ProfileEdit = () => {
     <ProfileEditWrapper>
       <div>
         <h1>{memberName}님</h1>
-        <p>사람정보</p>
+        <p>example@example.com</p>
       </div>
-      <div>
+      <div className="buttons">
         <Btns onClick={goBack}>profile</Btns>
         <Btns>edit</Btns>
       </div>
