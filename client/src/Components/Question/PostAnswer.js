@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Btns } from '../Layout/styled';
 import axios from 'axios';
+// import AcceptAnswer from './AcceptAnswer';
 
 const PostAnswer = ({ id }) => {
   const [answer, setAnswer] = useState('');
@@ -36,6 +37,7 @@ const PostAnswer = ({ id }) => {
         <ReactQuill value={answer} onChange={handleAnswerChange} />
         <Btns type="submit">Post Your Answer</Btns>
       </form>
+      {/* <AcceptAnswer /> */}
     </>
   );
 };
