@@ -7,6 +7,7 @@ import axios from 'axios';
 const ProfileEdit = () => {
   const [showOutModal, setShowOutModal] = useState(false);
   const [showChangeModal, setShowChangeModal] = useState(false);
+  const [newAboutMe, setNewAboutMe] = useState('');
 
   const [memberName, setMemberName] = useState('');
   const [aboutme, setAboutMe] = useState('');
@@ -91,6 +92,23 @@ const ProfileEdit = () => {
     setNewPassword(event.target.value);
   };
 
+  const handleAboutMeChange = () => {
+    axios
+      .put(`http://localhost:3002/members/${myemail}/aboutme`, {
+        newAboutMe: newAboutMe,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('There was a problem with the axios operation:', error);
+      });
+  };
+
+  const aboutMeChange = (event) => {
+    setNewAboutMe(event.target.value);
+  };
+
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -108,9 +126,13 @@ const ProfileEdit = () => {
         <Btns>edit</Btns>
       </div>
       <div>
-        <form>
-          <input type="text" placeholder={`${aboutme}`} />
-        </form>
+        <input
+          type="text"
+          value={newAboutMe}
+          onChange={aboutMeChange}
+          placeholder={`${aboutme}`}
+        />
+        <Btns onClick={handleAboutMeChange}>About Me 변경하기</Btns>
       </div>
       <div>
         <Btns onClick={openModalOut}>회원탈퇴</Btns>

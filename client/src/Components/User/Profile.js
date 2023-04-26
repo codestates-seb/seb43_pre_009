@@ -43,7 +43,7 @@ const Profile = () => {
     if (!memberNameCookie || !aboutmeCookie) {
       navigate('/login');
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <ProfileWrapper>
