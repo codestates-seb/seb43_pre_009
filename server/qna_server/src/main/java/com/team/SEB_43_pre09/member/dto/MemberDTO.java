@@ -17,6 +17,7 @@ public class MemberDTO {
     private String modified_at;
     private String last_login_at;
     private Boolean secession;
+    private int reputation_count; /** 추가된 코드 by 유한별 */
 
     public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
         MemberDTO memberDTO = new MemberDTO();

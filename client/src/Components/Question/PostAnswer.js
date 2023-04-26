@@ -21,7 +21,6 @@ const PostAnswer = ({ id }) => {
       })
       .then(() => {
         setAnswer('');
-        alert('Your answer has been submitted!');
       })
       .catch((errer) => {
         console.log(errer);

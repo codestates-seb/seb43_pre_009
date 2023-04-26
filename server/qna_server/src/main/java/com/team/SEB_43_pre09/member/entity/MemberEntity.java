@@ -1,11 +1,14 @@
 package com.team.SEB_43_pre09.member.entity;
 
 import com.team.SEB_43_pre09.member.dto.MemberDTO;
+import com.team.SEB_43_pre09.reputation.Reputation;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.lang.reflect.Member;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -29,6 +32,21 @@ public class MemberEntity {
     private String last_login_at;
     @Column
     private Boolean secession;
+    // 추가
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+    /** Member와 Reputation 간에 일대일 연관 관계를 매핑하기 위해 추가된 코드입니다. by 유한별*/
+    @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Reputation reputation;
+
+    /** Member와 Reputation 간에 양방향 연관 관계를 안전하게 매핑하기 위해 추가된 코드입니다. by 유한별*/
+    public void setReputation(Reputation reputation) {
+        this.reputation = reputation;
+        if (reputation.getMember() != this) {
+            reputation.setMember(this);
+        }
+    }
 
     public static MemberEntity toMemberEntity (MemberDTO memberDTO) { // DTO 가져와서 엔티티로 변환
         MemberEntity memberEntity = new MemberEntity();

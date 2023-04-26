@@ -3,6 +3,7 @@ package com.team.SEB_43_pre09.member.service;
 import com.team.SEB_43_pre09.member.dto.MemberDTO;
 import com.team.SEB_43_pre09.member.entity.MemberEntity;
 import com.team.SEB_43_pre09.member.repository.MemberRepository;
+import com.team.SEB_43_pre09.reputation.Reputation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,20 @@ public class MemberService {
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
         memberRepository.save(memberEntity); // repository 에 저장
     }
+
+    /** 추가된 코드 by 유한별 */
+    public MemberEntity createMember(MemberEntity member) {
+        // 신규 회원에 대한 reputation 제공
+        initReputation(member);
+
+        return memberRepository.save(member);
+    }
+
+    /** 추가된 코드 by 유한별 */
+    private void initReputation(MemberEntity member) {
+        member.setReputation(new Reputation());
+    }
+
     public MemberDTO login (MemberDTO memberDTO) {
 
         Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
