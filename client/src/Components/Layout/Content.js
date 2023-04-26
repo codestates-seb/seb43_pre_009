@@ -1,5 +1,5 @@
 import { ContentWrapper } from './styled';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import PostList from '../Question/PostList';
 import Profile from '../User/Profile';
@@ -11,8 +11,21 @@ import AddQuestion from '../Question/AddQuestion';
 import UpdateQuestion from '../Question/UpdateQuestion';
 
 function Content() {
+  // TODO 로그인/회원가입 페이지에 따로 적용되는 스타일
+  const location = useLocation();
+
+  const isLoginPageTheme =
+    location.pathname === '/login' || location.pathname === '/signup';
+
+  const widePageStyle = {
+    border: isLoginPageTheme && '0',
+    width: '100%',
+    maxWidth: '100%',
+    padding: '0',
+  };
+
   return (
-    <ContentWrapper>
+    <ContentWrapper style={widePageStyle}>
       <Routes>
         {/* list로 연결 - 수정사항 : 하위 라우터를 연결하는 중첩라우팅의 경우 "와일드카드"의 개념을 활용하여 작성해야 한다 */}
         <Route path="/" element={`Home Contents`} />
