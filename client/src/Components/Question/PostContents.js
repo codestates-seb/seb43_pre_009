@@ -6,10 +6,12 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { xonokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import {
   PostContentsWrapper,
-  QuestionHeader,
+  PostHeader,
   FlexItem,
   Title,
   ContentsWrapper,
+  AnswerWrapper,
+  BtnsWrapper,
 } from './styled';
 import { Btns } from '../Layout/styled';
 import PostAnswer from './PostAnswer';
@@ -94,7 +96,7 @@ const PostContents = () => {
     <PostContentsWrapper>
       {post ? (
         <>
-          <QuestionHeader>
+          <PostHeader>
             <Title>
               <div>{post.title}</div>
             </Title>
@@ -103,16 +105,21 @@ const PostContents = () => {
                 <a href="/question/add">Ask Question</a>
               </Btns>
             </FlexItem>
-          </QuestionHeader>
+          </PostHeader>
           <ContentsWrapper>{parsedContent}</ContentsWrapper>
-          <AnswerList id={post.id} />
-          <PostAnswer id={post.id} />
+          <BtnsWrapper>
+            <button onClick={handleEdit}>edit</button>
+            <button onClick={handleDelete}>delete</button>
+          </BtnsWrapper>
+          {/* 답변 폼 */}
+          <AnswerWrapper>
+            <AnswerList id={post.id} />
+            <PostAnswer id={post.id} />
+          </AnswerWrapper>
         </>
       ) : (
         <div>Loading...</div>
       )}
-      <button onClick={handleEdit}>edit</button>
-      <button onClick={handleDelete}>delete</button>
     </PostContentsWrapper>
   );
 };
