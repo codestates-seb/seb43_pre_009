@@ -8,11 +8,16 @@ const ProfileWrapper = styled.div`
   .info {
   }
   .buttons {
+    padding: 10px 0px 10px 0px;
   }
   .info div {
     padding: 60px;
     border: 1px solid black;
     border-radius: 5px;
+  }
+  p,
+  h2 {
+    padding: 20px 0px 20px 0px;
   }
 `;
 const Profile = () => {
@@ -43,15 +48,13 @@ const Profile = () => {
     if (!memberNameCookie || !aboutmeCookie) {
       navigate('/login');
     }
-
   }, [navigate]);
-
 
   return (
     <ProfileWrapper>
       <div className="user">
         <h1>{memberName}님</h1>
-        <p>사람정보</p>
+        <p>example@example.com</p>
       </div>
       <div className="buttons">
         <Btns>profile</Btns>
@@ -63,9 +66,6 @@ const Profile = () => {
         <h2>About</h2>
         <hr />
         <div>{aboutme}</div>
-        <h2>Requtation</h2>
-        <hr />
-        <div>당신의 답장개수는 0개입니다</div>
       </div>
     </ProfileWrapper>
   );

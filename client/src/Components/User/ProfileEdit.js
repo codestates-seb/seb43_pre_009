@@ -2,7 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Btns } from '../Layout/styled';
 import { Modal, ModalBackdrop } from '../Login/styled';
+import styled from 'styled-components';
 import axios from 'axios';
+
+const ProfileEditWrapper = styled.div`
+  margin: 30px;
+`;
 
 const ProfileEdit = () => {
   const [showOutModal, setShowOutModal] = useState(false);
@@ -116,9 +121,9 @@ const ProfileEdit = () => {
   };
 
   return (
-    <div>
+    <ProfileEditWrapper>
       <div>
-        <h1>{memberName}</h1>
+        <h1>{memberName}님</h1>
         <p>사람정보</p>
       </div>
       <div>
@@ -164,7 +169,7 @@ const ProfileEdit = () => {
           </ModalBackdrop>
         ) : null}
       </div>
-    </div>
+    </ProfileEditWrapper>
   );
 };
 
