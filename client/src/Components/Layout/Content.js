@@ -18,12 +18,14 @@ function Content() {
   const isLoginPageTheme =
     location.pathname === '/login' || location.pathname === '/signup';
 
-  const widePageStyle = {
-    border: isLoginPageTheme && '0',
-    width: '100%',
-    maxWidth: '100%',
-    padding: '0',
-  };
+  const widePageStyle = isLoginPageTheme
+    ? {
+        border: isLoginPageTheme && '0',
+        width: isLoginPageTheme && '100%',
+        maxWidth: isLoginPageTheme && '100%',
+        padding: isLoginPageTheme && '0',
+      }
+    : {};
 
   return (
     <ContentWrapper style={widePageStyle}>
