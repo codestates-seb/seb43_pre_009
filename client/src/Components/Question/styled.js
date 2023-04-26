@@ -30,6 +30,10 @@ export const QuestionContent = styled.div`
   padding: 24px 0 24px 24px;
 `;
 
+export const PostContentsWrapper = styled.div`
+  margin-bottom: 30px;
+`;
+
 // 컨텐츠 내용 스타일링
 export const ContentsWrapper = styled.div`
   font-size: 16px;

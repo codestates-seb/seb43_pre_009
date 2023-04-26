@@ -4,7 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { xonokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { QuestionHeader, FlexItem, Title, ContentsWrapper } from './styled';
+import {
+  PostContentsWrapper,
+  QuestionHeader,
+  FlexItem,
+  Title,
+  ContentsWrapper,
+} from './styled';
 import { Btns } from '../Layout/styled';
 import PostAnswer from './PostAnswer';
 import AnswerList from './AnswerList';
@@ -85,7 +91,7 @@ const PostContents = () => {
   };
 
   return (
-    <>
+    <PostContentsWrapper>
       {post ? (
         <>
           <QuestionHeader>
@@ -107,7 +113,7 @@ const PostContents = () => {
       )}
       <button onClick={handleEdit}>edit</button>
       <button onClick={handleDelete}>delete</button>
-    </>
+    </PostContentsWrapper>
   );
 };
 
