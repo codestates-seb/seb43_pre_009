@@ -6,8 +6,51 @@ import { Btns } from '../Layout/styled';
 import axios from 'axios';
 import hljs from 'highlight.js';
 import { QuillEditorWrapper } from './styled';
-// import styled from 'styled-components';
 // import AcceptAnswer from './AcceptAnswer';
+
+// Quill Editor Module
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    [{ font: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
+    ],
+    ['link'],
+    [{ color: [] }, { background: [] }],
+    [{ align: [] }],
+    [{ script: 'sub' }, { script: 'super' }],
+    ['code', 'code-block'],
+    ['clean'],
+  ],
+  syntax: {
+    highlight: (text) => hljs.highlightAuto(text).value,
+  },
+};
+// Quill Editor Formats
+const formats = [
+  'header',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'color',
+  'background',
+  'font',
+  'align',
+  'script',
+  'code',
+  'code-block',
+];
 
 const PostAnswer = ({ id }) => {
   const [answer, setAnswer] = useState('');
@@ -31,50 +74,6 @@ const PostAnswer = ({ id }) => {
         alert('Failed to submit your answer');
       });
   };
-
-  // Quill Editor Module
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      [{ font: [] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
-      ],
-      ['link'],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      [{ script: 'sub' }, { script: 'super' }],
-      ['code', 'code-block'],
-      ['clean'],
-    ],
-    syntax: {
-      highlight: (text) => hljs.highlightAuto(text).value,
-    },
-  };
-  // Quill Editor Formats
-  const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'color',
-    'background',
-    'font',
-    'align',
-    'script',
-    'code',
-    'code-block',
-  ];
 
   return (
     <>
