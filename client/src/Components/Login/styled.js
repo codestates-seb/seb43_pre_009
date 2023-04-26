@@ -17,6 +17,7 @@ export const LoginWrapper = styled.div`
   margin-bottom: 20px;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background: white;
 `;
 
 export const SignUpWrapper = styled.div`
@@ -28,6 +29,7 @@ export const SignUpWrapper = styled.div`
   margin-bottom: 20px;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background: white;
 `;
 
 export const InputWrapper = styled.div`
