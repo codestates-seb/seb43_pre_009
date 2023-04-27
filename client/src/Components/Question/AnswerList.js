@@ -3,10 +3,61 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import hljs from 'highlight.js';
 import { xonokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import parse from 'html-react-parser';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { Btns } from '../Layout/styled';
+import {
+  BtnsWrapper,
+  AnswerBox,
+  QuillEditorWrapper,
+  EditAnswer,
+} from './styled';
+
+// Quill Editor Module
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    [{ font: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
+    ],
+    ['link'],
+    [{ color: [] }, { background: [] }],
+    [{ align: [] }],
+    [{ script: 'sub' }, { script: 'super' }],
+    ['code', 'code-block'],
+    ['clean'],
+  ],
+  syntax: {
+    highlight: (text) => hljs.highlightAuto(text).value,
+  },
+};
+// Quill Editor Formats
+const formats = [
+  'header',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'color',
+  'background',
+  'font',
+  'align',
+  'script',
+  'code',
+  'code-block',
+];
 
 const AnswerList = ({ id }) => {
   const [answer, setAnswers] = useState([]);
@@ -116,22 +167,33 @@ const AnswerList = ({ id }) => {
 
   return (
     <>
+      <h2>Answer</h2>
       {answer.map((answer) => (
-        <div key={answer.id}>
+        <AnswerBox key={answer.id}>
           <div>{parsedContent(answer.contents)}</div>
-          <div>{answer.createdAt}</div>
-          <div>
+          <BtnsWrapper>
             <button onClick={() => handleEdit(answer)}>Edit</button>
             <button onClick={() => handleDelete(answer.id)}>Delete</button>
-          </div>
-        </div>
+            <div>{answer.createdAt}</div>
+          </BtnsWrapper>
+        </AnswerBox>
       ))}
       {isEditing && (
-        <div>
-          <ReactQuill value={editedContent} onChange={setEditedContent} />
+        <EditAnswer>
+          {/* <ReactQuill value={editedContent} onChange={setEditedContent} /> */}
+          <QuillEditorWrapper>
+            <ReactQuill
+              name="answer"
+              value={editedContent}
+              onChange={setEditedContent}
+              modules={modules}
+              formats={formats}
+              theme="snow"
+            />
+          </QuillEditorWrapper>
           <Btns onClick={() => handleSubmit(editingAnswerId)}>Submit</Btns>
           <Btns onClick={handleCancelEdit}>Cancel</Btns>
-        </div>
+        </EditAnswer>
       )}
     </>
   );
