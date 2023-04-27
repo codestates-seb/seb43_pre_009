@@ -78,7 +78,6 @@ const Profile = () => {
       );
       setMyReputation(reputationlValue);
     }
-
   }, [navigate]);
 
   return (
