@@ -6,9 +6,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    TODO : 데이터베이스 연동 해야합니다.
-    url: jdbc:mysql://localhost:3306/?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password:
+    url: jdbc:mysql://localhost:3306/database-2?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: admin
+    password: suzka5-kidsih-kexdaC
   thymeleaf:
     cache: false
 
