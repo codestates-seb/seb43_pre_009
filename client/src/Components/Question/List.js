@@ -11,7 +11,7 @@ import Paging from './Paging';
 const ListWrapper = styled.div``;
 
 const TitleWrapper = styled.div`
-  width: 90%;
+  width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -56,7 +56,7 @@ const TitleWrapper = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  width: 90%;
+  width: 100%;
   margin-bottom: 20px;
   border-bottom: 1px solid #d6d9dc;
   padding-bottom: 20px;
