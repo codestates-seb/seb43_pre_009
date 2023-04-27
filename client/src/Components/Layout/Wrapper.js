@@ -4,7 +4,7 @@ import { InnerWrapper } from './styled';
 import { useLocation } from 'react-router-dom';
 
 function Wrapper() {
-  // TODO 로그인/회원가입 페이지에 SideNav 랜더링 하지 않기
+  // TODO 홈/로그인/회원가입 페이지에 SideNav 랜더링 하지 않기
   const location = useLocation();
   const hideSideNav =
     location.pathname === '/login' || location.pathname === '/signup';
