@@ -2,9 +2,14 @@ import styled from 'styled-components';
 import { Btns } from '../Layout/styled';
 
 export const QuillEditorWrapper = styled.div`
+  margin-bottom: 18px;
   .ql-editor {
     height: 200px;
   }
+`;
+
+export const EditAnswer = styled.div`
+  margin-bottom: 32px;
 `;
 
 export const PostHeader = styled.div`
@@ -15,8 +20,6 @@ export const PostHeader = styled.div`
   padding-bottom: 24px;
   & h1 {
     font-size: 24px;
-  }
-  & > ${Btns} {
   }
 `;
 
@@ -38,6 +41,9 @@ export const QuestionContent = styled.div`
 
 export const PostContentsWrapper = styled.div`
   margin-bottom: 30px;
+  & ${Btns} {
+    margin: 0 6px 0 0;
+  }
 `;
 
 // 컨텐츠 내용 스타일링
@@ -62,6 +68,21 @@ export const BtnsWrapper = styled.div`
 `;
 
 /* Answer */
+
+export const AnswerBox = styled.div`
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e3e6e8;
+  margin-bottom: 24px;
+  overflow: hidden;
+  padding: 32px 24px;
+  & > ${BtnsWrapper} {
+    & div {
+      float: right;
+      color: #989898;
+    }
+  }
+`;
+
 export const AnswerWrapper = styled.div`
   margin-top: 80px;
   &.qlContainer {
@@ -72,5 +93,8 @@ export const AnswerWrapper = styled.div`
   }
   & > button {
     margin: 24px 0 0 0;
+  }
+  & > ${AnswerBox}:nth-child(odd) {
+    background: #f8f8f8;
   }
 `;
