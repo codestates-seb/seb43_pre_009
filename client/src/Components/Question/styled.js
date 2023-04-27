@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { Btns } from '../Layout/styled';
 
-export const QuestionHeader = styled.div`
+export const QuillEditorWrapper = styled.div`
+  .ql-editor {
+    height: 200px;
+  }
+`;
+
+export const PostHeader = styled.div`
   display: flex;
   flex-flow: row;
   justify-content: space-between;
@@ -25,9 +31,13 @@ export const Title = styled.h1`
   margin-bottom: 0;
 `;
 
-/* QuestionContent */
+/* PostContent */
 export const QuestionContent = styled.div`
   padding: 24px 0 24px 24px;
+`;
+
+export const PostContentsWrapper = styled.div`
+  margin-bottom: 30px;
 `;
 
 // 컨텐츠 내용 스타일링
@@ -40,5 +50,27 @@ export const ContentsWrapper = styled.div`
     background-color: #f6f6f6;
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+`;
+
+export const BtnsWrapper = styled.div`
+  margin-top: 32px;
+  & button {
+    color: #999;
+    margin-right: 12px;
+  }
+`;
+
+/* Answer */
+export const AnswerWrapper = styled.div`
+  margin-top: 80px;
+  &.qlContainer {
+    min-height: 180px;
+  }
+  & h2 {
+    margin-bottom: 24px;
+  }
+  & > button {
+    margin: 24px 0 0 0;
   }
 `;

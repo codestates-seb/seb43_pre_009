@@ -2,7 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { login, logout } from '../../Actions/isLoginSlice';
-import { LoginWrapper } from './styled';
+import { ReactComponent as Logo } from '../../logo-stackoverflow.svg';
+import {
+  LoginWrapper,
+  LoginPageWrapper,
+  InputWrapper,
+  LoginBtn,
+  LogoImg,
+} from './styled';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -62,36 +69,46 @@ const Login = () => {
   };
 
   return (
-    <>
+    <LoginPageWrapper>
+      <LogoImg>
+        <Logo viewBox="2 2 113 121" />
+      </LogoImg>
       <form onSubmit={onSubmit}>
         <LoginWrapper>
-          <input
-            name="email"
-            type="email"
-            placeholder="email"
-            required
-            value={email}
-            onChange={onChange}
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={onChange}
-          />
-          <input type="submit" value="Log In" />
+          <InputWrapper>
+            <p>Email</p>
+            <input
+              name="email"
+              type="email"
+              required
+              value={email}
+              onChange={onChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <p>Password</p>
+            <input
+              name="password"
+              type="password"
+              required
+              value={password}
+              onChange={onChange}
+            />
+          </InputWrapper>
+          <LoginBtn type="submit" value="Log In">
+            Log in
+          </LoginBtn>
         </LoginWrapper>
       </form>
       {islogin ? (
         <p>로그인 성공</p>
       ) : (
-        <p>
+        <div>
+          {/* 이 부분부터 수정해야 함. <br /> */}
           dont have an account? <Link to="/signup">Sign up</Link>
-        </p>
+        </div>
       )}
-    </>
+    </LoginPageWrapper>
   );
 };
 

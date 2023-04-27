@@ -4,6 +4,53 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Btns } from '../Layout/styled';
 import axios from 'axios';
+import hljs from 'highlight.js';
+import { QuillEditorWrapper } from './styled';
+// import AcceptAnswer from './AcceptAnswer';
+
+// Quill Editor Module
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    [{ font: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
+    ],
+    ['link'],
+    [{ color: [] }, { background: [] }],
+    [{ align: [] }],
+    [{ script: 'sub' }, { script: 'super' }],
+    ['code', 'code-block'],
+    ['clean'],
+  ],
+  syntax: {
+    highlight: (text) => hljs.highlightAuto(text).value,
+  },
+};
+// Quill Editor Formats
+const formats = [
+  'header',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'color',
+  'background',
+  'font',
+  'align',
+  'script',
+  'code',
+  'code-block',
+];
 
 const PostAnswer = ({ id }) => {
   const [answer, setAnswer] = useState('');
@@ -24,7 +71,6 @@ const PostAnswer = ({ id }) => {
       })
       .catch((errer) => {
         console.log(errer);
-        console.log(answer);
         alert('Failed to submit your answer');
       });
   };
@@ -33,9 +79,19 @@ const PostAnswer = ({ id }) => {
     <>
       <h2>Your Answer</h2>
       <form onSubmit={handleSubmit}>
-        <ReactQuill value={answer} onChange={handleAnswerChange} />
+        <QuillEditorWrapper>
+          <ReactQuill
+            name="answer"
+            value={answer}
+            onChange={handleAnswerChange}
+            modules={modules}
+            formats={formats}
+            theme="snow"
+          />
+        </QuillEditorWrapper>
         <Btns type="submit">Post Your Answer</Btns>
       </form>
+      {/* <AcceptAnswer /> */}
     </>
   );
 };

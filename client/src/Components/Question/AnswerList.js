@@ -101,7 +101,7 @@ const AnswerList = ({ id }) => {
     ) {
       return (
         <SyntaxHighlighter language="javascript" style={xonokai}>
-          {domNode.children[1].data}
+          {domNode.children[0].data}
         </SyntaxHighlighter>
       );
     }

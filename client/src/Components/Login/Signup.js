@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoginWrapper, ModalBackdrop, Modal } from './styled';
+import { ReactComponent as Logo } from '../../logo-stackoverflow.svg';
+import {
+  SignUpWrapper,
+  LoginPageWrapper,
+  InputWrapper,
+  ModalBackdrop,
+  Modal,
+  LoginBtn,
+  LogoImg,
+} from './styled';
 import { Btns } from '../Layout/styled';
 
 const Signup = () => {
@@ -66,45 +75,58 @@ const Signup = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <LoginWrapper>
-        <input
-          name="email"
-          type="email"
-          placeholder="email"
-          required
-          value={email}
-          onChange={onChange}
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={onChange}
-        />
-        <input
-          name="membername"
-          type="text"
-          placeholder="membername"
-          required
-          value={membername}
-          onChange={onChange}
-        />
-        <input type="submit" value="Sign Up" onClick={openModal} />
-        {showModal ? (
-          <ModalBackdrop>
-            <Modal>
-              <h1>{modalContent}님</h1>
-              <h3>반갑습니다!</h3>
-              <h3>맘껏이용해보십쇼!</h3>
-              <Btns onClick={closeModal}>로그인 하기</Btns>
-            </Modal>
-          </ModalBackdrop>
-        ) : null}
-      </LoginWrapper>
-    </form>
+    <LoginPageWrapper>
+      <LogoImg>
+        <Logo viewBox="2 2 113 121" />
+      </LogoImg>
+      <form onSubmit={onSubmit}>
+        <SignUpWrapper>
+          <InputWrapper>
+            <p>Email</p>
+            <input
+              name="email"
+              type="email"
+              required
+              value={email}
+              onChange={onChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <p>Password</p>
+            <input
+              name="password"
+              type="password"
+              required
+              value={password}
+              onChange={onChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <p>Username</p>
+            <input
+              name="membername"
+              type="text"
+              required
+              value={membername}
+              onChange={onChange}
+            />
+          </InputWrapper>
+          <LoginBtn type="submit" onClick={openModal}>
+            Sign Up
+          </LoginBtn>
+          {showModal ? (
+            <ModalBackdrop>
+              <Modal>
+                <h1>{modalContent}님</h1>
+                <h3>반갑습니다!</h3>
+                <h3>맘껏이용해보십쇼!</h3>
+                <Btns onClick={closeModal}>로그인 하기</Btns>
+              </Modal>
+            </ModalBackdrop>
+          ) : null}
+        </SignUpWrapper>
+      </form>
+    </LoginPageWrapper>
   );
 };
 

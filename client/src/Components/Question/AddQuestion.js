@@ -9,7 +9,7 @@ import hljs from 'highlight.js';
 // 스타일 코드
 const AddQuestionWrapper = styled.div`
   /* background-color: #f8f9f9; */
-  width: 90%;
+  width: 100%;
 `;
 
 const GuideLineWrapper = styled.div`
